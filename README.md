@@ -7,4 +7,4 @@
     
   • Utilized MySQL database to store and retrieve data entered through the GUI.
   
-  • Developed the application using Java Swing, AWT and MySQL
+  • Developed the application using Java Swing, AWT and MySQL.
