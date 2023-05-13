@@ -19,7 +19,7 @@ public class adminaddcourse extends javax.swing.JFrame {
     /**
      * Creates new form add course
      */
-    adminhome cs = new adminhome();
+    coursedatasql cs = new coursedatasql();
     public adminaddcourse() {
         initComponents();
         setTitle("Admin Add New Course");
@@ -213,54 +213,58 @@ public class adminaddcourse extends javax.swing.JFrame {
     private void addnewcoursecancelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addnewcoursecancelbuttonActionPerformed
         // TODO add your handling code here:
 //        setVisible(false);
-//        dispose();
+        this.dispose();
+   
+    }//GEN-LAST:event_addnewcoursecancelbuttonActionPerformed
 
+    private void addnewcourseaddbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addnewcourseaddbuttonActionPerformed
+        // TODO add your handling code here:
+//        setVisible(false);
+//        new adminaddcourse().setVisible(true);
             String coursename = entercoursename.getText();
             String coursecode = entercoursecode.getText();
             String semoryear = (String) entersemoryear.getSelectedItem();
             String totalsemoryear = entertotalsemoryear.getText();
-//	 	if(courcecode.isEmpty())
-//		{
-//                    JOptionPane.showMessageDialog(null, "Missing selection in courcecode ComboBox", "Error", JOptionPane.ERROR_MESSAGE);
-//		}
-//	
-//		else if(courcename.isEmpty())
-//		{
-//                    JOptionPane.showMessageDialog(null, "Missing selection in courcename ComboBox", "Error", JOptionPane.ERROR_MESSAGE);
-//		}
-//		else if (entersemoryear.getSelectedIndex() == 0) {
-//                    JOptionPane.showMessageDialog(null, "Missing selection in semoryear ComboBox", "Error", JOptionPane.ERROR_MESSAGE);
-//                }
-//		else if(totalsemoryear.isEmpty())
-//		{
-//                    JOptionPane.showMessageDialog(null, "Missing selection in totalsemoryear ComboBox", "Error", JOptionPane.ERROR_MESSAGE);
-//		}
+
+	 	if(coursecode.isEmpty())
+		{
+                    JOptionPane.showMessageDialog(null, "Missing selection in courcecode", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	
+		else if(coursename.isEmpty())
+		{
+                    JOptionPane.showMessageDialog(null, "Missing selection in courcename", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else if (semoryear.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Missing selection in semoryear ComboBox", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+		else if(totalsemoryear.isEmpty())
+		{
+                    JOptionPane.showMessageDialog(null, "Missing selection in totalsemoryear", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 
 
 
-            if (coursename.isEmpty() || coursecode.isEmpty() || semoryear.isEmpty() || totalsemoryear.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Missing Label");
-            } else {
+//            if (coursename.isEmpty() || coursecode.isEmpty() || semoryear.isEmpty() || totalsemoryear.isEmpty()) {
+//                JOptionPane.showMessageDialog(null, "Missing Label");
+//            } 
+                else {
                 if (!cs.isCourseExist(coursename)) {
-                    int hours = Integer.parseInt(hoursSpi.getValue().toString());
-                    cs.CourseUpdate('i', null, coursename, hours);
+                    int totalsem=Integer.parseInt(totalsemoryear);
+                    cs.CourseUpdate('i', 1, coursecode, coursename, semoryear, totalsem);
                     adminhome.CS.setText("Courses : " + Integer.toString(MyFunction.countData("courses")));
 
                     try {
-                        adminmanagecourse.jTable1.setModel(new DefaultTableModel(null, new Object[]{"Sr_No", "Course Code", "Course Name", "Sem/Year","Toatl Sem/Year"}));
-                        cs.courseTable(adminmanagecourse.jTable1);
+                        adminmanagecourse.managecoursetable.setModel(new DefaultTableModel(null, new Object[]{"Sr_No", "Course Code", "Course Name", "Sem/Year","Toatl Sem/Year"}));
+                        cs.courseTable(adminmanagecourse.managecoursetable);
                     } catch (Exception ex) {
                         System.out.println(ex.getMessage());
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Course Already Exists");
                 }
-    }//GEN-LAST:event_addnewcoursecancelbuttonActionPerformed
-
-    private void addnewcourseaddbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addnewcourseaddbuttonActionPerformed
-        // TODO add your handling code here:
-        setVisible(false);
-        new adminaddcourse().setVisible(true);
+            }
+        
         
     }//GEN-LAST:event_addnewcourseaddbuttonActionPerformed
 

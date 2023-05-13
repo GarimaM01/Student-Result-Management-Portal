@@ -5,6 +5,9 @@
 package resultmanagementsystem;
 
 import java.awt.Color;
+import Courses.coursedatasql;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,9 +18,12 @@ public class adminmanagecourse extends javax.swing.JFrame {
     /**
      * Creates new form admin manage course
      */
+    
+    coursedatasql cs = new coursedatasql();
     public adminmanagecourse() {
         initComponents();
         setTitle("Admin Manage Course");
+        cs.courseTable(managecoursetable);
     }
 
     /**
@@ -34,16 +40,16 @@ public class adminmanagecourse extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        coursecode = new javax.swing.JTextField();
+        coursename = new javax.swing.JTextField();
+        totalsemoryear = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         managecourseaddbutton = new com.k33ptoo.components.KButton();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel1 = new javax.swing.JLabel();
         managecourseeditbutton = new com.k33ptoo.components.KButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        managecoursetable = new javax.swing.JTable();
         managecourseremovebutton = new com.k33ptoo.components.KButton();
         managecoursecancelbutton = new com.k33ptoo.components.KButton();
         jLabel6 = new javax.swing.JLabel();
@@ -66,24 +72,24 @@ public class adminmanagecourse extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Romande ADF Std", 1, 14)); // NOI18N
         jLabel5.setText("Total Sem/Year");
 
-        jTextField1.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        coursecode.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
+        coursecode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                coursecodeActionPerformed(evt);
             }
         });
 
-        jTextField2.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        coursename.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
+        coursename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                coursenameActionPerformed(evt);
             }
         });
 
-        jTextField3.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        totalsemoryear.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
+        totalsemoryear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                totalsemoryearActionPerformed(evt);
             }
         });
 
@@ -144,7 +150,7 @@ public class adminmanagecourse extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        managecoursetable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -169,7 +175,7 @@ public class adminmanagecourse extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(managecoursetable);
 
         managecourseremovebutton.setText("REMOVE");
         managecourseremovebutton.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
@@ -221,9 +227,9 @@ public class adminmanagecourse extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
+                            .addComponent(coursecode)
+                            .addComponent(coursename)
+                            .addComponent(totalsemoryear)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -255,11 +261,11 @@ public class adminmanagecourse extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(coursecode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(coursename, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -267,7 +273,7 @@ public class adminmanagecourse extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(totalsemoryear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(42, 42, 42)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(managecourseaddbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -292,17 +298,17 @@ public class adminmanagecourse extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void coursecodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coursecodeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_coursecodeActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void coursenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coursenameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_coursenameActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void totalsemoryearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalsemoryearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_totalsemoryearActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
@@ -366,6 +372,8 @@ public class adminmanagecourse extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField ID;
+    private javax.swing.JTextField coursecode;
+    private javax.swing.JTextField coursename;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -375,14 +383,12 @@ public class adminmanagecourse extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private keeptoo.KGradientPanel kGradientPanel1;
     private com.k33ptoo.components.KButton managecourseaddbutton;
     private com.k33ptoo.components.KButton managecoursecancelbutton;
     private com.k33ptoo.components.KButton managecourseeditbutton;
     private com.k33ptoo.components.KButton managecourseremovebutton;
+    public static javax.swing.JTable managecoursetable;
+    private javax.swing.JTextField totalsemoryear;
     // End of variables declaration//GEN-END:variables
 }
