@@ -88,7 +88,7 @@ public class AdminHPAllCourses extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 80, 220, -1));
 
-        jLabel3.setBackground(new java.awt.Color(0, 153, 153));
+        jLabel3.setBackground(new java.awt.Color(0, 204, 204));
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resultmanagementsystem/AddCoursedac.png"))); // NOI18N

@@ -5,6 +5,8 @@
 package resultmanagementsystem;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -35,10 +37,10 @@ public class adminaddcourse extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        entercoursecode = new javax.swing.JTextField();
+        entercoursename = new javax.swing.JTextField();
+        entertotalsemoryear = new javax.swing.JTextField();
+        entersemoryear = new javax.swing.JComboBox<>();
         addnewcoursecancelbutton = new com.k33ptoo.components.KButton();
         addnewcourseaddbutton = new com.k33ptoo.components.KButton();
         kGradientPanel1 = new keeptoo.KGradientPanel();
@@ -60,32 +62,32 @@ public class adminaddcourse extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Romande ADF Std", 1, 14)); // NOI18N
         jLabel5.setText("Total Sem/Year");
 
-        jTextField1.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        entercoursecode.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
+        entercoursecode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                entercoursecodeActionPerformed(evt);
             }
         });
 
-        jTextField2.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        entercoursename.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
+        entercoursename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                entercoursenameActionPerformed(evt);
             }
         });
 
-        jTextField3.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        entertotalsemoryear.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
+        entertotalsemoryear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                entertotalsemoryearActionPerformed(evt);
             }
         });
 
-        jComboBox1.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sem", "Year" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        entersemoryear.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
+        entersemoryear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-------- SELECT CHOICE --------", "Sem", "Year" }));
+        entersemoryear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                entersemoryearActionPerformed(evt);
             }
         });
 
@@ -157,10 +159,10 @@ public class adminaddcourse extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(entercoursecode)
+                    .addComponent(entercoursename)
+                    .addComponent(entertotalsemoryear)
+                    .addComponent(entersemoryear, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -172,19 +174,19 @@ public class adminaddcourse extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(entercoursecode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(entercoursename, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(entersemoryear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(entertotalsemoryear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addnewcoursecancelbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,8 +210,29 @@ public class adminaddcourse extends javax.swing.JFrame {
 
     private void addnewcoursecancelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addnewcoursecancelbuttonActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
-        dispose();
+//        setVisible(false);
+//        dispose();
+
+            String courcename=entercoursename.getText();
+		String courcecode=entercoursecode.getText();
+		String semoryear=(String) entersemoryear.getSelectedItem();
+		String totalsemoryear=entertotalsemoryear.getText();
+	 	if(courcecode.isEmpty())
+		{
+                    JOptionPane.showMessageDialog(null, "Missing selection in entersemoryear ComboBox", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	
+		else if(courcename.isEmpty())
+		{
+                    JOptionPane.showMessageDialog(null, "Missing selection in entersemoryear ComboBox", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else if (entersemoryear.getSelectedIndex() == 0) {
+                    JOptionPane.showMessageDialog(null, "Missing selection in entersemoryear ComboBox", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+		else if(totalsemoryear.isEmpty())
+		{
+                    JOptionPane.showMessageDialog(null, "Missing selection in entersemoryear ComboBox", "Error", JOptionPane.ERROR_MESSAGE);
+		}
     }//GEN-LAST:event_addnewcoursecancelbuttonActionPerformed
 
     private void addnewcourseaddbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addnewcourseaddbuttonActionPerformed
@@ -219,21 +242,21 @@ public class adminaddcourse extends javax.swing.JFrame {
         
     }//GEN-LAST:event_addnewcourseaddbuttonActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void entercoursecodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entercoursecodeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_entercoursecodeActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void entercoursenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entercoursenameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_entercoursenameActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void entersemoryearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entersemoryearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_entersemoryearActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void entertotalsemoryearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entertotalsemoryearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_entertotalsemoryearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -274,16 +297,16 @@ public class adminaddcourse extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.k33ptoo.components.KButton addnewcourseaddbutton;
     private com.k33ptoo.components.KButton addnewcoursecancelbutton;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField entercoursecode;
+    private javax.swing.JTextField entercoursename;
+    private javax.swing.JComboBox<String> entersemoryear;
+    private javax.swing.JTextField entertotalsemoryear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -44,7 +44,8 @@ public class adminmanagecourse extends javax.swing.JFrame {
         managecourseeditbutton = new com.k33ptoo.components.KButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        kButton1 = new com.k33ptoo.components.KButton();
+        managecourseremovebutton = new com.k33ptoo.components.KButton();
+        managecoursecancelbutton = new com.k33ptoo.components.KButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -168,12 +169,24 @@ public class adminmanagecourse extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        kButton1.setText("REMOVE");
-        kButton1.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
-        kButton1.setkBorderRadius(25);
-        kButton1.setkEndColor(new java.awt.Color(255, 0, 255));
-        kButton1.setkHoverForeGround(new java.awt.Color(0, 0, 0));
-        kButton1.setkHoverStartColor(new Color(73,13,198,120));
+        managecourseremovebutton.setText("REMOVE");
+        managecourseremovebutton.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
+        managecourseremovebutton.setkBorderRadius(25);
+        managecourseremovebutton.setkEndColor(new java.awt.Color(255, 0, 255));
+        managecourseremovebutton.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        managecourseremovebutton.setkHoverStartColor(new Color(73,13,198,120));
+
+        managecoursecancelbutton.setText("CANCEL");
+        managecoursecancelbutton.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
+        managecoursecancelbutton.setkBorderRadius(25);
+        managecoursecancelbutton.setkEndColor(new java.awt.Color(255, 0, 255));
+        managecoursecancelbutton.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        managecoursecancelbutton.setkHoverStartColor(new Color(73,13,198,120));
+        managecoursecancelbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                managecoursecancelbuttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -183,12 +196,6 @@ public class adminmanagecourse extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(managecourseeditbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(managecourseaddbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -200,7 +207,16 @@ public class adminmanagecourse extends javax.swing.JFrame {
                             .addComponent(jTextField1)
                             .addComponent(jTextField2)
                             .addComponent(jTextField3)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(managecoursecancelbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(managecourseremovebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(managecourseeditbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(35, 35, 35)
+                        .addComponent(managecourseaddbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -232,7 +248,9 @@ public class adminmanagecourse extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(managecourseaddbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(managecourseeditbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(managecourseremovebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(managecoursecancelbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
@@ -278,6 +296,12 @@ public class adminmanagecourse extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_managecourseeditbuttonActionPerformed
 
+    private void managecoursecancelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managecoursecancelbuttonActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_managecoursecancelbuttonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -322,13 +346,14 @@ public class adminmanagecourse extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private com.k33ptoo.components.KButton kButton1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private com.k33ptoo.components.KButton managecourseaddbutton;
+    private com.k33ptoo.components.KButton managecoursecancelbutton;
     private com.k33ptoo.components.KButton managecourseeditbutton;
+    private com.k33ptoo.components.KButton managecourseremovebutton;
     // End of variables declaration//GEN-END:variables
 }

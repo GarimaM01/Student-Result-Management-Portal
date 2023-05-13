@@ -96,7 +96,7 @@ public class AdminHPStudents extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 112, 220, -1));
 
-        jLabel4.setBackground(new java.awt.Color(0, 153, 153));
+        jLabel4.setBackground(new java.awt.Color(0, 204, 204));
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resultmanagementsystem/AddStudentdac.png"))); // NOI18N

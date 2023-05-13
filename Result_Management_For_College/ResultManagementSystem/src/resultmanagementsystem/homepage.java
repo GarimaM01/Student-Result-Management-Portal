@@ -748,30 +748,22 @@ public class homepage extends javax.swing.JFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/universitymanagement1","root","micro_code01");
-                String sql = "select * from admin where adminemail = ? and adminpassword = ?";
-
+                String sql = "SELECT adminname FROM admin WHERE adminemail = ? AND adminpassword = ?";
                 java.sql.PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, adminemail.getText());
-                pst.setString(2, String.valueOf(adminpassword.getPassword()));
-              
+                pst.setString(2, String.valueOf(adminpassword.getPassword()));             
                 java.sql.ResultSet rs = pst.executeQuery();
-                
+
                 if (rs.next()) {
-                   
+                    String name = rs.getString("adminname");
                     setVisible(false);
                     new adminhome().setVisible(true);
-//                    adminhome mf = new adminhome();
-//                    mf.setVisible(true);
-//                    mf.pack();
-//                    mf.setLocationRelativeTo(null);
-//                    mf.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                    adminhome.welUser.setText("WELCOME " + adminemail.getText());
                     adminhome.CS1.setText("Students : " + Integer.toString(MyFunction.countData("student")));
-                    adminhome.CS.setText("Courses : " + Integer.toString(MyFunction.countData("course")));
+                    adminhome.CS.setText("Courses : " + Integer.toString(MyFunction.countData("courses")));
                     adminhome.CS2.setText("Faculties : " + Integer.toString(MyFunction.countData("teacher")));
-                    adminhome.CS3.setText("Subjects : " + Integer.toString(MyFunction.countData("subjects")));
+                    adminhome.CS3.setText("Admins : " + Integer.toString(MyFunction.countData("admin")));
                     this.dispose();
-                    adminhome.welUser.setText("Welcome "+adminemail.getText()+" ");
+                    adminhome.welUser.setText("Welcome " + name + " ");
                 } else {
                     JOptionPane.showMessageDialog(null,"Incorrect Username or Password","Login Failed",2);
                     adminemail.setText("");

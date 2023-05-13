@@ -83,7 +83,7 @@ public class adminhome extends javax.swing.JFrame {
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 64, 220, 10));
 
-        jLabel2.setBackground(new java.awt.Color(0, 153, 153));
+        jLabel2.setBackground(new java.awt.Color(0, 204, 204));
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resultmanagementsystem/AddHomedac.png"))); // NOI18N
@@ -285,7 +285,7 @@ public class adminhome extends javax.swing.JFrame {
         CS3.setBackground(new java.awt.Color(255, 255, 255));
         CS3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         CS3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        CS3.setText("Subjects :");
+        CS3.setText("Admins :");
         jPanel9.add(CS3, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 128, 113, -1));
 
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -298,10 +298,10 @@ public class adminhome extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(0, 153, 153));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        welUser.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        welUser.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
         welUser.setForeground(new java.awt.Color(255, 255, 255));
-        welUser.setText("Welcome Administrator");
-        jPanel3.add(welUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 260, -1));
+        welUser.setText("WELCOME Admin");
+        jPanel3.add(welUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, 290, -1));
 
         jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
