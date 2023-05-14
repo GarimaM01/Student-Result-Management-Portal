@@ -4,8 +4,14 @@
  */
 package resultmanagementsystem;
 
+import Connection.MyConnection;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 
 /**
  *
@@ -52,7 +58,7 @@ public class AdminHPAllCourses extends javax.swing.JFrame {
         addcourse = new javax.swing.JLabel();
         managecourse = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        allcoursesdetails = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1062, 607));
@@ -265,23 +271,8 @@ public class AdminHPAllCourses extends javax.swing.JFrame {
 
         AdminHPAllCourses.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 770, 160));
 
-        jTable1.setBackground(new java.awt.Color(150, 224, 209));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        allcoursesdetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
@@ -296,9 +287,14 @@ public class AdminHPAllCourses extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setGridColor(new java.awt.Color(255, 179, 198));
-        jTable1.setOpaque(false);
-        jScrollPane1.setViewportView(jTable1);
+        allcoursesdetails.setGridColor(new java.awt.Color(255, 179, 198));
+        allcoursesdetails.setOpaque(false);
+        allcoursesdetails.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                allcoursesdetailsMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(allcoursesdetails);
 
         AdminHPAllCourses.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 770, 310));
 
@@ -622,6 +618,35 @@ public class AdminHPAllCourses extends javax.swing.JFrame {
         new adminmanagecourse().setVisible(true);
     }//GEN-LAST:event_managecourseMouseClicked
 
+    private void allcoursesdetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_allcoursesdetailsMouseClicked
+        // TODO add your handling code here:
+        try {
+            PreparedStatement ps = MyConnection.getConnection().prepareStatement( "SELECT coursecode, coursename, COUNT(DISTINCT subjectcode) AS subjects, COUNT(DISTINCT studentid) AS students, totalsemoryear FROM courses LEFT JOIN subjects USING (coursecode) LEFT JOIN students USING (coursecode, semoryear) GROUP BY coursecode, semoryear");
+            ResultSet rs = ps.executeQuery();
+
+            DefaultTableModel model = new DefaultTableModel();
+            Object[] column = {"Sr_No", "Course Code", "Course Name", "Subjects", "Students", "Sem/Yr", "Total Sem/Yr"};
+            model.setColumnIdentifiers(column);
+
+            Object[] row = new Object[7];
+            int i = 1;
+            while (rs.next()) {
+                row[0] = i++;
+                row[1] = rs.getString("coursecode");
+                row[2] = rs.getString("coursename");
+                row[3] = rs.getString("subjects");
+                row[4] = rs.getInt("students");
+                row[5] = rs.getString("semoryear");
+                row[6] = rs.getInt("totalsemoryear");
+                model.addRow(row);
+            }
+            allcoursesdetails.setModel(model);
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }//GEN-LAST:event_allcoursesdetailsMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -662,6 +687,7 @@ public class AdminHPAllCourses extends javax.swing.JFrame {
     private javax.swing.JLabel addcourse;
     private javax.swing.JLabel adminexit;
     private javax.swing.JLabel adminlogout;
+    public static javax.swing.JTable allcoursesdetails;
     private javax.swing.JLabel courserollgenerator;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -679,7 +705,6 @@ public class AdminHPAllCourses extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel managecourse;
     // End of variables declaration//GEN-END:variables
 }

@@ -235,15 +235,18 @@ public class adminaddcourse extends javax.swing.JFrame {
     }//GEN-LAST:event_entertotalsemoryearActionPerformed
 
     public static String capitalizeWord(String str){  
-    String words[]=str.split("\\s");  
-    String capitalizeWord="";  
-    for(String w:words){  
-        String first=w.substring(0,1);  
-        String afterfirst=w.substring(1);  
-        capitalizeWord+=first.toUpperCase()+afterfirst+" ";  
+        String words[]=str.split("\\s");  
+        String capitalizeWord="";  
+        for(String w:words){  
+            String first=w.substring(0,1);  
+            String afterfirst=w.substring(1);  
+            capitalizeWord+=first.toUpperCase()+afterfirst+" ";  
+        }  
+        return capitalizeWord.trim();  
     }  
-    return capitalizeWord.trim();  
-}  
+    
+    
+    
     private void addnewcourseaddbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addnewcourseaddbuttonMouseClicked
         // TODO add your handling code here:
 //        setVisible(false);
@@ -270,9 +273,10 @@ public class adminaddcourse extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Missing selection in totalsemoryear", "Error", JOptionPane.ERROR_MESSAGE);
 		}
                 else {
-                    if (cs.isCourseExist(coursecode) || cs.isCourseExist(coursename)) {
-                        JOptionPane.showMessageDialog(null, "Course Already Exists");
-                    } else {
+                    if (cs.isCourseExist(coursecode, coursename)) {
+                            JOptionPane.showMessageDialog(null, "Course Already Exists");
+                    }
+                     else {
                         int totalsem = Integer.parseInt(totalsemoryear);
                         coursename = entercoursename.getText();
                         coursename = capitalizeWord(coursename);

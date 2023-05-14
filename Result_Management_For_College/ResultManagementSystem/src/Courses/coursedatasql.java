@@ -84,22 +84,21 @@ public void CourseUpdate(char op, int sr_no, String coursecode, String coursenam
 }
     
 
-public boolean isCourseExist(String coursename) {
-
+public boolean isCourseExist(String coursecode, String coursename) {
     boolean isExist = false;
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/universitymanagement1","root","micro_code01");
         PreparedStatement ps;
         
-        ps = con.prepareStatement("SELECT * FROM courses WHERE coursename = ?");
-        ps.setString(1, coursename);
+        ps = con.prepareStatement("SELECT * FROM courses WHERE coursecode = ? OR coursename = ?");
+        ps.setString(1, coursecode);
+        ps.setString(2, coursename);
 
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
             isExist = true;
-
         }
 
     } catch (SQLException | ClassNotFoundException ex) {
@@ -108,6 +107,7 @@ public boolean isCourseExist(String coursename) {
 
     return isExist;
 }
+
 
 public void courseTable(JTable table) {
 

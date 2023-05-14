@@ -165,11 +165,7 @@ public class adminmanagecourse extends javax.swing.JFrame {
 
         managecoursetable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Sr_No", "Course Code", "Course Name", "Sem/Year", "Total Sem/Year"
@@ -218,7 +214,7 @@ public class adminmanagecourse extends javax.swing.JFrame {
         jLabel6.setText("ID");
 
         ID.setEditable(false);
-        ID.setBackground(new java.awt.Color(153, 153, 153));
+        ID.setBackground(new java.awt.Color(204, 204, 204));
         ID.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
         ID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
