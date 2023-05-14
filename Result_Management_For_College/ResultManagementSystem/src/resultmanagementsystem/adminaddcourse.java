@@ -4,9 +4,12 @@
  */
 package resultmanagementsystem;
 
+import Connection.MyFunction;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Courses.coursedatasql;
+import com.mysql.cj.util.StringUtils;
 
 /**
  *
@@ -17,7 +20,7 @@ public class adminaddcourse extends javax.swing.JFrame {
     /**
      * Creates new form add course
      */
-    adminhome cs = new adminhome();
+    coursedatasql cs = new coursedatasql();
     public adminaddcourse() {
         initComponents();
         setTitle("Admin Add New Course");
@@ -109,9 +112,9 @@ public class adminaddcourse extends javax.swing.JFrame {
         addnewcourseaddbutton.setkEndColor(new java.awt.Color(255, 0, 255));
         addnewcourseaddbutton.setkHoverForeGround(new java.awt.Color(0, 0, 0));
         addnewcourseaddbutton.setkHoverStartColor(new Color(73,13,198,120));
-        addnewcourseaddbutton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addnewcourseaddbuttonActionPerformed(evt);
+        addnewcourseaddbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addnewcourseaddbuttonMouseClicked(evt);
             }
         });
 
@@ -211,36 +214,9 @@ public class adminaddcourse extends javax.swing.JFrame {
     private void addnewcoursecancelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addnewcoursecancelbuttonActionPerformed
         // TODO add your handling code here:
 //        setVisible(false);
-//        dispose();
-
-            String courcename=entercoursename.getText();
-		String courcecode=entercoursecode.getText();
-		String semoryear=(String) entersemoryear.getSelectedItem();
-		String totalsemoryear=entertotalsemoryear.getText();
-	 	if(courcecode.isEmpty())
-		{
-                    JOptionPane.showMessageDialog(null, "Missing selection in entersemoryear ComboBox", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-	
-		else if(courcename.isEmpty())
-		{
-                    JOptionPane.showMessageDialog(null, "Missing selection in entersemoryear ComboBox", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-		else if (entersemoryear.getSelectedIndex() == 0) {
-                    JOptionPane.showMessageDialog(null, "Missing selection in entersemoryear ComboBox", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-		else if(totalsemoryear.isEmpty())
-		{
-                    JOptionPane.showMessageDialog(null, "Missing selection in entersemoryear ComboBox", "Error", JOptionPane.ERROR_MESSAGE);
-		}
+        this.dispose();
+   
     }//GEN-LAST:event_addnewcoursecancelbuttonActionPerformed
-
-    private void addnewcourseaddbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addnewcourseaddbuttonActionPerformed
-        // TODO add your handling code here:
-        setVisible(false);
-        new adminaddcourse().setVisible(true);
-        
-    }//GEN-LAST:event_addnewcourseaddbuttonActionPerformed
 
     private void entercoursecodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entercoursecodeActionPerformed
         // TODO add your handling code here:
@@ -257,6 +233,70 @@ public class adminaddcourse extends javax.swing.JFrame {
     private void entertotalsemoryearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entertotalsemoryearActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_entertotalsemoryearActionPerformed
+
+    public static String capitalizeWord(String str){  
+    String words[]=str.split("\\s");  
+    String capitalizeWord="";  
+    for(String w:words){  
+        String first=w.substring(0,1);  
+        String afterfirst=w.substring(1);  
+        capitalizeWord+=first.toUpperCase()+afterfirst+" ";  
+    }  
+    return capitalizeWord.trim();  
+}  
+    private void addnewcourseaddbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addnewcourseaddbuttonMouseClicked
+        // TODO add your handling code here:
+//        setVisible(false);
+//        new adminaddcourse().setVisible(true);
+            String coursename = entercoursename.getText();
+            String coursecode = entercoursecode.getText();
+            String semoryear = (String) entersemoryear.getSelectedItem();
+            String totalsemoryear = entertotalsemoryear.getText();
+
+	 	if(coursecode.isEmpty())
+		{
+                    JOptionPane.showMessageDialog(null, "Missing selection in courcecode", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	
+		else if(coursename.isEmpty())
+		{
+                    JOptionPane.showMessageDialog(null, "Missing selection in courcename", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else if (semoryear.isEmpty() || semoryear == "-------- SELECT CHOICE --------") {
+                    JOptionPane.showMessageDialog(null, "Select anyone option from SEM or YEAR", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+		else if(totalsemoryear.isEmpty())
+		{
+                    JOptionPane.showMessageDialog(null, "Missing selection in totalsemoryear", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+                else {
+                    if (cs.isCourseExist(coursecode) || cs.isCourseExist(coursename)) {
+                        JOptionPane.showMessageDialog(null, "Course Already Exists");
+                    } else {
+                        int totalsem = Integer.parseInt(totalsemoryear);
+                        coursename = entercoursename.getText();
+                        coursename = capitalizeWord(coursename);
+                        int maxLength = 60; // Assuming maximum length of 50 characters for the coursename column
+
+                        if (coursename.length() > maxLength) {
+                            coursename = coursename.substring(0, maxLength);
+                            JOptionPane.showMessageDialog(null, "Course Name truncated to " + maxLength + " characters");
+                        }
+
+                        cs.CourseUpdate('i', 0, coursecode, coursename, semoryear, totalsem);
+                        
+                        adminhome.CS.setText("Courses : " + Integer.toString(MyFunction.countData("courses")));
+
+                        try {
+                            DefaultTableModel model = new DefaultTableModel(null, new Object[]{"Sr_No", "Course Code", "Course Name", "Sem/Year","Total Sem/Year"});
+                            adminmanagecourse.managecoursetable.setModel(model);
+                            cs.courseTable(adminmanagecourse.managecoursetable);
+                        } catch (Exception ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                }
+    }//GEN-LAST:event_addnewcourseaddbuttonMouseClicked
 
     /**
      * @param args the command line arguments

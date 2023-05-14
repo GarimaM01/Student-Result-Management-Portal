@@ -4,7 +4,11 @@
  */
 package resultmanagementsystem;
 
+import Connection.MyFunction;
 import java.awt.Color;
+import Courses.coursedatasql;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,9 +19,18 @@ public class adminmanagecourse extends javax.swing.JFrame {
     /**
      * Creates new form admin manage course
      */
+    
+    coursedatasql cs = new coursedatasql();
     public adminmanagecourse() {
         initComponents();
         setTitle("Admin Manage Course");
+        cs.courseTable(managecoursetable);
+        
+//        managecoursetable.setRowHeight(40);
+//        managecoursetable.setShowGrid(true);
+//        managecoursetable.setGridColor(Color.black);
+//        managecoursetable.setBackground(Color.white);
+//        managecoursetable.setSelectionBackground(Color.gray);
     }
 
     /**
@@ -34,18 +47,21 @@ public class adminmanagecourse extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        entercoursecode = new javax.swing.JTextField();
+        entercoursename = new javax.swing.JTextField();
+        entertotalsemoryear = new javax.swing.JTextField();
+        entersemoryear = new javax.swing.JComboBox<>();
         managecourseaddbutton = new com.k33ptoo.components.KButton();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel1 = new javax.swing.JLabel();
         managecourseeditbutton = new com.k33ptoo.components.KButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        managecoursetable = new javax.swing.JTable();
         managecourseremovebutton = new com.k33ptoo.components.KButton();
         managecoursecancelbutton = new com.k33ptoo.components.KButton();
+        jLabel6 = new javax.swing.JLabel();
+        ID = new javax.swing.JTextField();
+        managecourserefreshbutton = new com.k33ptoo.components.KButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -64,34 +80,29 @@ public class adminmanagecourse extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Romande ADF Std", 1, 14)); // NOI18N
         jLabel5.setText("Total Sem/Year");
 
-        jTextField1.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        entercoursecode.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
+        entercoursecode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                entercoursecodeActionPerformed(evt);
             }
         });
 
-        jTextField2.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        entercoursename.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
+        entercoursename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                entercoursenameActionPerformed(evt);
             }
         });
 
-        jTextField3.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        entertotalsemoryear.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
+        entertotalsemoryear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                entertotalsemoryearActionPerformed(evt);
             }
         });
 
-        jComboBox1.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sem", "Year" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
+        entersemoryear.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
+        entersemoryear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sem", "Year" }));
 
         managecourseaddbutton.setText("ADD");
         managecourseaddbutton.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
@@ -99,6 +110,11 @@ public class adminmanagecourse extends javax.swing.JFrame {
         managecourseaddbutton.setkEndColor(new java.awt.Color(255, 0, 255));
         managecourseaddbutton.setkHoverForeGround(new java.awt.Color(0, 0, 0));
         managecourseaddbutton.setkHoverStartColor(new Color(73,13,198,120));
+        managecourseaddbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                managecourseaddbuttonMouseClicked(evt);
+            }
+        });
         managecourseaddbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 managecourseaddbuttonActionPerformed(evt);
@@ -136,38 +152,43 @@ public class adminmanagecourse extends javax.swing.JFrame {
         managecourseeditbutton.setkEndColor(new java.awt.Color(255, 0, 255));
         managecourseeditbutton.setkHoverForeGround(new java.awt.Color(0, 0, 0));
         managecourseeditbutton.setkHoverStartColor(new Color(73,13,198,120));
+        managecourseeditbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                managecourseeditbuttonMouseClicked(evt);
+            }
+        });
         managecourseeditbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 managecourseeditbuttonActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        managecoursetable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Course Code", "Course Name", "Sem/Year", "Total Sem/Year"
+                "Sr_No", "Course Code", "Course Name", "Sem/Year", "Total Sem/Year"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        managecoursetable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                managecoursetableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(managecoursetable);
 
         managecourseremovebutton.setText("REMOVE");
         managecourseremovebutton.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
@@ -175,6 +196,11 @@ public class adminmanagecourse extends javax.swing.JFrame {
         managecourseremovebutton.setkEndColor(new java.awt.Color(255, 0, 255));
         managecourseremovebutton.setkHoverForeGround(new java.awt.Color(0, 0, 0));
         managecourseremovebutton.setkHoverStartColor(new Color(73,13,198,120));
+        managecourseremovebutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                managecourseremovebuttonMouseClicked(evt);
+            }
+        });
 
         managecoursecancelbutton.setText("CANCEL");
         managecoursecancelbutton.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
@@ -188,35 +214,67 @@ public class adminmanagecourse extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Romande ADF Std", 1, 14)); // NOI18N
+        jLabel6.setText("ID");
+
+        ID.setEditable(false);
+        ID.setBackground(new java.awt.Color(153, 153, 153));
+        ID.setFont(new java.awt.Font("Romande ADF Std", 0, 12)); // NOI18N
+        ID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IDActionPerformed(evt);
+            }
+        });
+
+        managecourserefreshbutton.setText("REFRESH");
+        managecourserefreshbutton.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
+        managecourserefreshbutton.setkBorderRadius(25);
+        managecourserefreshbutton.setkEndColor(new java.awt.Color(255, 0, 255));
+        managecourserefreshbutton.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        managecourserefreshbutton.setkHoverStartColor(new Color(73,13,198,120));
+        managecourserefreshbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                managecourserefreshbuttonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(managecoursecancelbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(ID))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(35, 35, 35)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(entercoursecode)
+                                    .addComponent(entercoursename)
+                                    .addComponent(entertotalsemoryear)
+                                    .addComponent(entersemoryear, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(managecourseremovebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(35, 35, 35)
-                                .addComponent(managecourseeditbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(managecourseeditbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(managecourseaddbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(managecourserefreshbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
-                        .addComponent(managecourseaddbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(managecoursecancelbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -226,32 +284,40 @@ public class adminmanagecourse extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(entercoursecode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(entercoursename, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(entersemoryear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(entertotalsemoryear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(42, 42, 42)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(managecourseaddbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(managecourseeditbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(managecourseremovebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(managecoursecancelbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(managecoursecancelbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(managecourserefreshbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -269,21 +335,17 @@ public class adminmanagecourse extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void entercoursecodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entercoursecodeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_entercoursecodeActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void entercoursenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entercoursenameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_entercoursenameActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void entertotalsemoryearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entertotalsemoryearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_entertotalsemoryearActionPerformed
 
     private void managecourseaddbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managecourseaddbuttonActionPerformed
         // TODO add your handling code here:
@@ -294,13 +356,79 @@ public class adminmanagecourse extends javax.swing.JFrame {
 
     private void managecourseeditbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managecourseeditbuttonActionPerformed
         // TODO add your handling code here:
+        if (ID.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "No Course Selected");
+        } else {
+            int id = Integer.valueOf(ID.getText());
+            String coursename = entercoursename.getText();
+            String coursecode = entercoursecode.getText();
+            String semoryear = (String) entersemoryear.getSelectedItem();
+            String totalsemoryear = entertotalsemoryear.getText();
+            int totalsem=Integer.parseInt(totalsemoryear);
+            
+            cs.CourseUpdate('u', id, coursecode, coursename, semoryear, totalsem);
+            cs.courseTable(adminmanagecourse.managecoursetable);
+            adminmanagecourse.managecoursetable.setModel(new DefaultTableModel(null, new Object[]{"Sr_No", "Course Code", "Course Name", "Sem/Year","Toatl Sem/Year"}));
+            cs.courseTable(adminmanagecourse.managecoursetable);
+        }
     }//GEN-LAST:event_managecourseeditbuttonActionPerformed
 
     private void managecoursecancelbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managecoursecancelbuttonActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+//        setVisible(false);
         dispose();
     }//GEN-LAST:event_managecoursecancelbuttonActionPerformed
+
+    private void IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IDActionPerformed
+
+    private void managecourseaddbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_managecourseaddbuttonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_managecourseaddbuttonMouseClicked
+
+    private void managecourseeditbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_managecourseeditbuttonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_managecourseeditbuttonMouseClicked
+
+    private void managecoursetableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_managecoursetableMouseClicked
+        // TODO add your handling code here:
+        int index = managecoursetable.getSelectedRow();
+        ID.setText(managecoursetable.getValueAt(index, 0).toString());
+        entercoursecode.setText(managecoursetable.getValueAt(index, 1).toString());
+        entercoursename.setText(managecoursetable.getValueAt(index, 2).toString());
+        entersemoryear.setSelectedItem(managecoursetable.getValueAt(index, 3).toString());
+        entertotalsemoryear.setText(managecoursetable.getValueAt(index, 4).toString());
+        
+    }//GEN-LAST:event_managecoursetableMouseClicked
+
+    private void managecourserefreshbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managecourserefreshbuttonActionPerformed
+        // TODO add your handling code here:
+//        setVisible(false);
+        this.dispose();
+        new adminmanagecourse().setVisible(true);
+    }//GEN-LAST:event_managecourserefreshbuttonActionPerformed
+
+    private void managecourseremovebuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_managecourseremovebuttonMouseClicked
+        // TODO add your handling code here:
+        if (ID.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "No Course Selected");
+        } else {
+
+            int id = Integer.valueOf(ID.getText());
+            String coursename = entercoursename.getText();
+            String coursecode = entercoursecode.getText();
+            String semoryear = (String) entersemoryear.getSelectedItem();
+            String totalsemoryear = entertotalsemoryear.getText();
+            int totalsem=Integer.parseInt(totalsemoryear);
+            
+            cs.CourseUpdate('d', id, coursecode, coursename, semoryear, totalsem);
+            cs.courseTable(adminmanagecourse.managecoursetable);
+            adminmanagecourse.managecoursetable.setModel(new DefaultTableModel(null, new Object[]{"Sr_No", "Course Code", "Course Name", "Sem/Year","Toatl Sem/Year"}));
+            cs.courseTable(adminmanagecourse.managecoursetable);
+            adminhome.CS.setText("Courses : " + Integer.toString(MyFunction.countData("courses")));
+        }
+    }//GEN-LAST:event_managecourseremovebuttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -338,22 +466,25 @@ public class adminmanagecourse extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
+    public static javax.swing.JTextField ID;
+    private javax.swing.JTextField entercoursecode;
+    private javax.swing.JTextField entercoursename;
+    private javax.swing.JComboBox<String> entersemoryear;
+    private javax.swing.JTextField entertotalsemoryear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private keeptoo.KGradientPanel kGradientPanel1;
     private com.k33ptoo.components.KButton managecourseaddbutton;
     private com.k33ptoo.components.KButton managecoursecancelbutton;
     private com.k33ptoo.components.KButton managecourseeditbutton;
+    private com.k33ptoo.components.KButton managecourserefreshbutton;
     private com.k33ptoo.components.KButton managecourseremovebutton;
+    public static javax.swing.JTable managecoursetable;
     // End of variables declaration//GEN-END:variables
 }

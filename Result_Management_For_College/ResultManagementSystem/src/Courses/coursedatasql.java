@@ -28,12 +28,11 @@ public void CourseUpdate(char op, int sr_no, String coursecode, String coursenam
 
         if (op == 'i') {
             try {
-                ps = con.prepareStatement("INSERT INTO courses(sr_no, coursecode, coursename, semoryear, totalsemoryear) VALUES (?,?,?,?,?)");
-                ps.setInt(1, sr_no);
-                ps.setString(2, coursecode);
-                ps.setString(3, coursename);
-                ps.setString(4, semoryear);
-                ps.setInt(5, totalsemoryear);
+                ps = con.prepareStatement("INSERT INTO courses(coursecode, coursename, semoryear, totalsemoryear) VALUES (?,?,?,?)");
+                ps.setString(1, coursecode.toUpperCase());
+                ps.setString(2, coursename);
+                ps.setString(3, semoryear);
+                ps.setInt(4, totalsemoryear);
 
                 if (ps.executeUpdate() > 0) {
                     JOptionPane.showMessageDialog(null, "New Course Added Successfully");
@@ -83,6 +82,7 @@ public void CourseUpdate(char op, int sr_no, String coursecode, String coursenam
     }
 
 }
+    
 
 public boolean isCourseExist(String coursename) {
 

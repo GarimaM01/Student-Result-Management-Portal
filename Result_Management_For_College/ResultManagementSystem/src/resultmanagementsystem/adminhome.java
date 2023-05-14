@@ -589,7 +589,7 @@ public class adminhome extends javax.swing.JFrame {
 
     private void adminexitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminexitMouseClicked
         // TODO add your handling code here:
-        int a = JOptionPane.showConfirmDialog(null, "Do you want to logout now?", "Select", JOptionPane.YES_NO_OPTION);
+        int a = JOptionPane.showConfirmDialog(null, "Do you want to exit now?", "Select", JOptionPane.YES_NO_OPTION);
         if (a == 0) {
             setVisible(false);
             new resultmanagementsystem.homepage().setVisible(true);
