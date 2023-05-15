@@ -244,7 +244,7 @@ public class AdminHPStudents extends javax.swing.JFrame {
 
         viewstudent.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         viewstudent.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        viewstudent.setText("View Students");
+        viewstudent.setText("Manage Students");
         viewstudent.setOpaque(true);
         viewstudent.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

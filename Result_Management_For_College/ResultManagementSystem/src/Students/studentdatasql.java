@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -134,7 +136,8 @@ public class studentdatasql {
         Connection con = MyConnection.getConnection();
         PreparedStatement ps;
         try {
-            ps = con.prepareStatement("SELECT * FROM student WHERE CONCAT (first_name, last_name, phone, address)LIKE ?");
+            ps = con.prepareStatement("SELECT * FROM student WHERE CONCAT (firstname, lastname, emailid, "
+                    + "contactnumber, address, pincode, fathername, mothername)LIKE ?");
             ps.setString(1, "%" + valueToSearch + "%");
 
             ResultSet rs = ps.executeQuery();
@@ -143,14 +146,15 @@ public class studentdatasql {
             Object[] row;
 
             while (rs.next()) {
-                row = new Object[7];
-                row[0] = rs.getInt(1);
+                row = new Object[8];
+                row[0] = rs.getLong(1);
                 row[1] = rs.getString(2);
-                row[2] = rs.getString(3);
+                row[2] = rs.getInt(3);
                 row[3] = rs.getString(4);
                 row[4] = rs.getString(5);
                 row[5] = rs.getString(6);
                 row[6] = rs.getString(7);
+                row[7] = rs.getString(8);
 
                 model.addRow(row);
 
@@ -158,6 +162,20 @@ public class studentdatasql {
 
         } catch (SQLException ex) {
             Logger.getLogger(studentdatasql.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateStudentLastLoginAndActiveStatus(String userId) {
+        try {
+            Connection con = MyConnection.getConnection();
+            String sql = "UPDATE student SET lastlogin = ?, activestatus = ? WHERE userid = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
+            ps.setByte(2, (byte) 1);
+            ps.setString(3, userId);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 

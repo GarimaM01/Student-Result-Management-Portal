@@ -4,164 +4,17 @@
  */
 package Students;
 
-import Connection.MyConnection;
-import Connection.MyFunction;
-import java.sql.Connection;
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Random;
-import javax.swing.table.DefaultTableModel;
-import resultmanagementsystem.AdminHPStudents;
-import resultmanagementsystem.adminhome;
-import resultmanagementsystem.adminmanagecourse;
-
-
 /**
  *
  * @author Meteor
  */
-public class adminaddstudent extends javax.swing.JFrame {
+public class managestudent extends javax.swing.JFrame {
 
     /**
-     * Creates new form admin add student
+     * Creates new form managestudent
      */
-    Connection con = MyConnection.getConnection();
-    
-    // Initialize the JComboBox with the course names from the Courses table
-    private void initCourseComboBox() {
-        
-            PreparedStatement ps;
-        try {
-            ps = con.prepareStatement("SELECT coursename FROM courses");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String coursename = rs.getString("coursename");
-                courseComboBox.addItem(coursename);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    // Add a listener to the JComboBox that fetches the course names from the Courses table and updates the JComboBox
-//    private void addCourseComboBoxListener() {
-//        courseComboBox.addItemListener(new ItemListener() {
-//            @Override
-//            public void itemStateChanged(ItemEvent e) {
-//                if (e.getStateChange() == ItemEvent.SELECTED) {
-//                    
-//            PreparedStatement ps;
-//                    try {
-//                        // Clear the existing items in the JComboBox
-//                        courseComboBox.removeAllItems();
-//
-//                        // Fetch the course code from the Courses table and add them to the JComboBox
-//                        ps = con.prepareStatement("SELECT coursecode FROM courses");
-//                        ResultSet rs = ps.executeQuery();
-//                        while (rs.next()) {
-//                            String coursecode = rs.getString("coursecode");
-//                            courseComboBox.addItem(coursecode);
-//                        }
-//                    } catch (SQLException ex) {
-//                        ex.printStackTrace();
-//                    }
-//                }
-//            }
-//        });
-//    }
-
-    
-    public void updateStudentLastLoginAndActiveStatus(String userId) {
-        try {
-            Connection con = MyConnection.getConnection();
-            String sql = "UPDATE student SET lastlogin = ?, activestatus = ? WHERE userid = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
-            ps.setByte(2, (byte) 1);
-            ps.setString(3, userId);
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-    
-    
-    public void disable() {
-        courseComboBox.setEnabled(false);
-        semOrYearComboBox.setEnabled(false);
-        registerNoTextField.setEnabled(false);
-        OptionalSubject.setEnabled(false);
-        firstNameTextField.setEnabled(false);
-        lastNameTextField.setEnabled(false);
-        emailIdTextField.setEnabled(false);
-        countrycodeTextField.setEnabled(false);
-        contactnoTextFieldField.setEnabled(false);
-        dobTextField.setEnabled(false);
-        genderComboBox.setEnabled(false);
-        addressTextField.setEnabled(false);
-        stateTextField.setEnabled(false);
-        cityTextField.setEnabled(false);
-        pinCodeTextField.setEnabled(false);
-        fathernameTextField.setEnabled(false);
-        fatheroccupationTextField.setEnabled(false);
-        mothernameTextField.setEnabled(false);
-        motheroccupationTextField.setEnabled(false);
-        userIdTextField.setEnabled(false);
-        passwordField.setEnabled(false);
-        admissionDateTextField.setEnabled(false);
-        studentpic.setEnabled(false);
-        
-    }
-
-    public void enable() {
-        courseComboBox.setEnabled(true);
-        semOrYearComboBox.setEnabled(true);
-        registerNoTextField.setEnabled(true);
-        OptionalSubject.setEnabled(true);
-        firstNameTextField.setEnabled(true);
-        lastNameTextField.setEnabled(true);
-        emailIdTextField.setEnabled(true);
-        countrycodeTextField.setEnabled(true);
-        contactnoTextFieldField.setEnabled(true);
-        dobTextField.setEnabled(true);
-        genderComboBox.setEnabled(true);
-        addressTextField.setEnabled(true);
-        stateTextField.setEnabled(true);
-        cityTextField.setEnabled(true);
-        pinCodeTextField.setEnabled(true);
-        fathernameTextField.setEnabled(true);
-        fatheroccupationTextField.setEnabled(true);
-        mothernameTextField.setEnabled(true);
-        motheroccupationTextField.setEnabled(true);
-        userIdTextField.setEnabled(true);
-        passwordField.setEnabled(true);
-        admissionDateTextField.setEnabled(true);
-        studentpic.setEnabled(true);
-    }
-    
-    
-    public adminaddstudent() {
+    public managestudent() {
         initComponents();
-        setTitle("Admin Add Students");
-        initCourseComboBox();
-        
-//        addCourseComboBoxListener();
     }
 
     /**
@@ -224,10 +77,12 @@ public class adminaddstudent extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         clearaddstudentbutton = new com.k33ptoo.components.KButton();
+        jLabel21 = new javax.swing.JLabel();
+        search = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        managestudenttable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(244, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -238,39 +93,40 @@ public class adminaddstudent extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Romande ADF Std", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Add New Student");
+        jLabel1.setText("Manage Student  Record");
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(273, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(252, 252, 252))
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(580, 580, 580)
+                .addComponent(jLabel1)
+                .addContainerGap(572, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        jPanel1.add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, -1));
+        jPanel1.add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, -1));
 
         courseComboBox.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         courseComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-------- SELECT COURSE NAME --------" }));
         jPanel1.add(courseComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 300, 30));
 
         semOrYearComboBox.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        semOrYearComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-------- SELECT SEM OR YEAR --------", "1", "2", "3", "4", "5", "6", "7", "8" }));
+        semOrYearComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-------- SELECT CHOICE --------", "1", "2", "3", "4", "5", "6", "7", "8" }));
         jPanel1.add(semOrYearComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 300, 30));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setText("Register No");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, 30));
 
+        registerNoTextField.setEditable(false);
         registerNoTextField.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jPanel1.add(registerNoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 209, 30));
 
@@ -635,7 +491,62 @@ public class adminaddstudent extends javax.swing.JFrame {
         });
         jPanel1.add(clearaddstudentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 640, 80, 35));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 690));
+        jLabel21.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel21.setText("Search:");
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, 60, -1));
+
+        search.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchKeyTyped(evt);
+            }
+        });
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 90, 410, -1));
+
+        managestudenttable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7"
+            }
+        ));
+        managestudenttable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        managestudenttable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                managestudenttableMouseClicked(evt);
+            }
+        });
+        managestudenttable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                managestudenttableKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                managestudenttableKeyReleased(evt);
+            }
+        });
+        jScrollPane2.setViewportView(managestudenttable);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 140, 520, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -643,7 +554,7 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void firstNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameTextFieldFocusGained
         // TODO add your handling code here:
         if(firstNameTextField.getText().equals("First Name")){
-            firstNameTextField.setText("");   
+            firstNameTextField.setText("");
         }
         firstNameTextField.setForeground(Color.BLACK);
     }//GEN-LAST:event_firstNameTextFieldFocusGained
@@ -651,31 +562,15 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void firstNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameTextFieldFocusLost
         // TODO add your handling code here:
         if(firstNameTextField.getText().equals("")){
-            firstNameTextField.setText("First Name");    
+            firstNameTextField.setText("First Name");
         }
         firstNameTextField.setForeground(Color.GRAY);
     }//GEN-LAST:event_firstNameTextFieldFocusLost
 
-    private void fatheroccupationTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fatheroccupationTextFieldFocusGained
-        // TODO add your handling code here:
-        if(fatheroccupationTextField.getText().equals("Father's Occupation")){
-            fatheroccupationTextField.setText("");   
-        }
-        fatheroccupationTextField.setForeground(Color.BLACK);
-    }//GEN-LAST:event_fatheroccupationTextFieldFocusGained
-
-    private void fatheroccupationTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fatheroccupationTextFieldFocusLost
-        // TODO add your handling code here:
-        if(fatheroccupationTextField.getText().equals("")){
-            fatheroccupationTextField.setText("Father's Occupation");    
-        }
-        fatheroccupationTextField.setForeground(Color.GRAY);
-    }//GEN-LAST:event_fatheroccupationTextFieldFocusLost
-
     private void lastNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameTextFieldFocusGained
         // TODO add your handling code here:
         if(lastNameTextField.getText().equals("Last Name")){
-            lastNameTextField.setText("");   
+            lastNameTextField.setText("");
         }
         lastNameTextField.setForeground(Color.BLACK);
     }//GEN-LAST:event_lastNameTextFieldFocusGained
@@ -683,7 +578,7 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void lastNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameTextFieldFocusLost
         // TODO add your handling code here:
         if(lastNameTextField.getText().equals("")){
-            lastNameTextField.setText("Last Name");    
+            lastNameTextField.setText("Last Name");
         }
         lastNameTextField.setForeground(Color.GRAY);
     }//GEN-LAST:event_lastNameTextFieldFocusLost
@@ -691,7 +586,7 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void emailIdTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailIdTextFieldFocusGained
         // TODO add your handling code here:
         if(emailIdTextField.getText().equals("Email ID")){
-            emailIdTextField.setText("");   
+            emailIdTextField.setText("");
         }
         emailIdTextField.setForeground(Color.BLACK);
     }//GEN-LAST:event_emailIdTextFieldFocusGained
@@ -699,7 +594,7 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void emailIdTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailIdTextFieldFocusLost
         // TODO add your handling code here:
         if(emailIdTextField.getText().equals("")){
-            emailIdTextField.setText("Email ID");    
+            emailIdTextField.setText("Email ID");
         }
         emailIdTextField.setForeground(Color.GRAY);
     }//GEN-LAST:event_emailIdTextFieldFocusLost
@@ -707,7 +602,7 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void countrycodeTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_countrycodeTextFieldFocusGained
         // TODO add your handling code here:
         if(countrycodeTextField.getText().equals("Code")){
-            countrycodeTextField.setText("");   
+            countrycodeTextField.setText("");
         }
         countrycodeTextField.setForeground(Color.BLACK);
     }//GEN-LAST:event_countrycodeTextFieldFocusGained
@@ -715,15 +610,22 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void countrycodeTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_countrycodeTextFieldFocusLost
         // TODO add your handling code here:
         if(countrycodeTextField.getText().equals("")){
-            countrycodeTextField.setText("Code");    
+            countrycodeTextField.setText("Code");
         }
         countrycodeTextField.setForeground(Color.GRAY);
     }//GEN-LAST:event_countrycodeTextFieldFocusLost
 
+    private void countrycodeTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_countrycodeTextFieldKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_countrycodeTextFieldKeyTyped
+
     private void stateTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateTextFieldFocusGained
         // TODO add your handling code here:
         if(stateTextField.getText().equals("State")){
-            stateTextField.setText("");   
+            stateTextField.setText("");
         }
         stateTextField.setForeground(Color.BLACK);
     }//GEN-LAST:event_stateTextFieldFocusGained
@@ -731,7 +633,7 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void stateTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateTextFieldFocusLost
         // TODO add your handling code here:
         if(stateTextField.getText().equals("")){
-            stateTextField.setText("State");    
+            stateTextField.setText("State");
         }
         stateTextField.setForeground(Color.GRAY);
     }//GEN-LAST:event_stateTextFieldFocusLost
@@ -739,7 +641,7 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void cityTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityTextFieldFocusGained
         // TODO add your handling code here:
         if(cityTextField.getText().equals("City")){
-            cityTextField.setText("");   
+            cityTextField.setText("");
         }
         cityTextField.setForeground(Color.BLACK);
     }//GEN-LAST:event_cityTextFieldFocusGained
@@ -747,7 +649,7 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void cityTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityTextFieldFocusLost
         // TODO add your handling code here:
         if(cityTextField.getText().equals("")){
-            cityTextField.setText("City");    
+            cityTextField.setText("City");
         }
         cityTextField.setForeground(Color.GRAY);
     }//GEN-LAST:event_cityTextFieldFocusLost
@@ -755,7 +657,7 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void fathernameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fathernameTextFieldFocusGained
         // TODO add your handling code here:
         if(fathernameTextField.getText().equals("Father's Name")){
-            fathernameTextField.setText("");   
+            fathernameTextField.setText("");
         }
         fathernameTextField.setForeground(Color.BLACK);
     }//GEN-LAST:event_fathernameTextFieldFocusGained
@@ -763,15 +665,31 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void fathernameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fathernameTextFieldFocusLost
         // TODO add your handling code here:
         if(fathernameTextField.getText().equals("")){
-            fathernameTextField.setText("Father's Name");    
+            fathernameTextField.setText("Father's Name");
         }
         fathernameTextField.setForeground(Color.GRAY);
     }//GEN-LAST:event_fathernameTextFieldFocusLost
 
+    private void fatheroccupationTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fatheroccupationTextFieldFocusGained
+        // TODO add your handling code here:
+        if(fatheroccupationTextField.getText().equals("Father's Occupation")){
+            fatheroccupationTextField.setText("");
+        }
+        fatheroccupationTextField.setForeground(Color.BLACK);
+    }//GEN-LAST:event_fatheroccupationTextFieldFocusGained
+
+    private void fatheroccupationTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fatheroccupationTextFieldFocusLost
+        // TODO add your handling code here:
+        if(fatheroccupationTextField.getText().equals("")){
+            fatheroccupationTextField.setText("Father's Occupation");
+        }
+        fatheroccupationTextField.setForeground(Color.GRAY);
+    }//GEN-LAST:event_fatheroccupationTextFieldFocusLost
+
     private void mothernameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_mothernameTextFieldFocusGained
         // TODO add your handling code here:
         if(mothernameTextField.getText().equals("Mother's Name")){
-            mothernameTextField.setText("");   
+            mothernameTextField.setText("");
         }
         mothernameTextField.setForeground(Color.BLACK);
     }//GEN-LAST:event_mothernameTextFieldFocusGained
@@ -779,7 +697,7 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void mothernameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_mothernameTextFieldFocusLost
         // TODO add your handling code here:
         if(mothernameTextField.getText().equals("")){
-            mothernameTextField.setText("Mother's Name");    
+            mothernameTextField.setText("Mother's Name");
         }
         mothernameTextField.setForeground(Color.GRAY);
     }//GEN-LAST:event_mothernameTextFieldFocusLost
@@ -787,7 +705,7 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void motheroccupationTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_motheroccupationTextFieldFocusGained
         // TODO add your handling code here:
         if(motheroccupationTextField.getText().equals("Mother's Occupation")){
-            motheroccupationTextField.setText("");   
+            motheroccupationTextField.setText("");
         }
         motheroccupationTextField.setForeground(Color.BLACK);
     }//GEN-LAST:event_motheroccupationTextFieldFocusGained
@@ -795,89 +713,11 @@ public class adminaddstudent extends javax.swing.JFrame {
     private void motheroccupationTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_motheroccupationTextFieldFocusLost
         // TODO add your handling code here:
         if(motheroccupationTextField.getText().equals("")){
-            motheroccupationTextField.setText("Mother's Occupation");    
+            motheroccupationTextField.setText("Mother's Occupation");
         }
         motheroccupationTextField.setForeground(Color.GRAY);
     }//GEN-LAST:event_motheroccupationTextFieldFocusLost
 
-    private String getLastLogin() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        return dateFormat.format(date);
-    }
-    
-    private void canceladdstudentbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_canceladdstudentbuttonActionPerformed
-        // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_canceladdstudentbuttonActionPerformed
-
-    private void pinCodeTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pinCodeTextFieldFocusGained
-        // TODO add your handling code here:
-        if(pinCodeTextField.getText().equals("Pincode")){
-            pinCodeTextField.setText("");   
-        }
-        pinCodeTextField.setForeground(Color.BLACK);
-    }//GEN-LAST:event_pinCodeTextFieldFocusGained
-
-    private void pinCodeTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pinCodeTextFieldFocusLost
-        // TODO add your handling code here:
-        if(pinCodeTextField.getText().equals("")){
-            pinCodeTextField.setText("Pincode");    
-        }
-        pinCodeTextField.setForeground(Color.GRAY);
-    }//GEN-LAST:event_pinCodeTextFieldFocusLost
-
-    private void userIdTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userIdTextFieldFocusGained
-        // TODO add your handling code here:
-        if(userIdTextField.getText().equals("userid same as emailid")){
-            userIdTextField.setText("");   
-        }
-        userIdTextField.setForeground(Color.BLACK);
-    }//GEN-LAST:event_userIdTextFieldFocusGained
-
-    private void userIdTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userIdTextFieldFocusLost
-        // TODO add your handling code here:
-        if(userIdTextField.getText().equals("")){
-            userIdTextField.setText("userid same as emailid");    
-        }
-        userIdTextField.setForeground(Color.GRAY);
-    }//GEN-LAST:event_userIdTextFieldFocusLost
-
-    private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
-        // TODO add your handling code here:
-        if(passwordField.getText().equals("Set Password")){
-            passwordField.setText("");   
-        }
-        passwordField.setForeground(Color.BLACK);
-    }//GEN-LAST:event_passwordFieldFocusGained
-
-    private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
-        // TODO add your handling code here:
-        if(passwordField.getText().equals("")){
-            passwordField.setText("Set Password");    
-        }
-        passwordField.setForeground(Color.GRAY);
-    }//GEN-LAST:event_passwordFieldFocusLost
-
-    private void contactnoTextFieldFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactnoTextFieldFieldFocusGained
-        // TODO add your handling code here:
-        if(contactnoTextFieldField.getText().equals("Contact Number")){
-            contactnoTextFieldField.setText("");   
-        }
-        contactnoTextFieldField.setForeground(Color.BLACK);
-    }//GEN-LAST:event_contactnoTextFieldFieldFocusGained
-
-    private void contactnoTextFieldFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactnoTextFieldFieldFocusLost
-        // TODO add your handling code here:
-        if(contactnoTextFieldField.getText().equals("")){
-            contactnoTextFieldField.setText("Contact Number");    
-        }
-        contactnoTextFieldField.setForeground(Color.GRAY);
-    }//GEN-LAST:event_contactnoTextFieldFieldFocusLost
-
-    
-    private byte[] studentPhoto = null;
-    
     private void choosefileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_choosefileMouseClicked
         // TODO add your handling code here:
         // Open file chooser dialog
@@ -915,29 +755,17 @@ public class adminaddstudent extends javax.swing.JFrame {
             }
             removePhotoButton.setEnabled(true);
         }
-
     }//GEN-LAST:event_choosefileMouseClicked
-
-    private void removePhotoButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removePhotoButtonMouseClicked
-        // TODO add your handling code here:
-        studentpic.setIcon(null);
-        studentPhoto = null;
-
-        // Disable remove photo button
-        removePhotoButton.setEnabled(false);
-    }//GEN-LAST:event_removePhotoButtonMouseClicked
 
     private void addstudentbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addstudentbuttonMouseClicked
         // TODO add your handling code here:
-        
-        
-        
+
         String coursecode = courseComboBox.getSelectedItem().toString();
         Integer semoryear = Integer.parseInt(semOrYearComboBox.getSelectedItem().toString());
-//        Long registerNo = Long.parseLong(registerNoTextField.getText());
-// Generate a random 5-digit number starting from 10000
+        //        Long registerNo = Long.parseLong(registerNoTextField.getText());
+        // Generate a random 5-digit number starting from 10000
         Long registerNo = new Random().nextLong(90000) + 10000;
-        
+
         String optionalsubject = OptionalSubject.getSelectedItem().toString();
         String firstname = firstNameTextField.getText();
         String lastname = lastNameTextField.getText();
@@ -978,39 +806,71 @@ public class adminaddstudent extends javax.swing.JFrame {
             }
         }
 
+        // Insert student data into the database
 
-    if (registerNo != 00000 && registerNo > 10000 && !firstname.equals("") && !lastname.equals("") && 
-            !emailid.equals("") && !contactnumber.equals("") && !dateofbirth.equals("") && 
-            !address.equals("") && !state.equals("") && !city.equals("") && 
-            !pincode.equals("") && !fathername.equals("") && !fatheroccupation.equals("") && 
-            !mothername.equals("") && !motheroccupation.equals("") && !userid.equals("") && 
-            !password.equals("") && !admissiondate.equals("") && !profilepic.equals("") && 
-            !coursecode.equals("") && !semoryear.equals("") && !optionalsubject.equals("") && 
+        studentdatasql std = new studentdatasql();
+
+        std.StudentUpdate('i', coursecode, semoryear, registerNo, optionalsubject,
+            firstname, lastname, emailid, contactnumber, dateofbirth, gender, address, state, city,
+            pincode, fathername, fatheroccupation, mothername, motheroccupation, lastlogin, userid,
+            password, activestatus, admissiondate, profilepic);
+        adminhome.CS1.setText("Students : " + Integer.toString(MyFunction.countData("student")));
+        try {
+            AdminHPStudents.managestudenttable.setModel(new DefaultTableModel(null, new Object[]{"ID", "First Name", "Last Name", "Sex", "Date Of Birth", "Phone", "Address"}));
+            std.studentTable(ManageStudents.jTable, "");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        cs.courseTable(adminmanagecourse.managecoursetable);
+        adminmanagecourse.managecoursetable.setModel(new DefaultTableModel(null, new Object[]{"Sr_No", "Course Code", "Course Name", "Sem/Year","Toatl Sem/Year"}));
+        cs.courseTable(adminmanagecourse.managecoursetable);
+        adminhome.CS.setText("Courses : " + Integer.toString(MyFunction.countData("courses")));
+
+        if (registerNo != 00000 && registerNo > 10000 && !firstname.equals("") && !lastname.equals("") &&
+            !emailid.equals("") && !contactnumber.equals("") && !dateofbirth.equals("") &&
+            !address.equals("") && !state.equals("") && !city.equals("") &&
+            !pincode.equals("") && !fathername.equals("") && !fatheroccupation.equals("") &&
+            !mothername.equals("") && !motheroccupation.equals("") && !userid.equals("") &&
+            !password.equals("") && !admissiondate.equals("") && !profilepic.equals("") &&
+            !coursecode.equals("") && !semoryear.equals("") && !optionalsubject.equals("") &&
             !gender.equals(""))
 
-            // if the JTextField is not empty then enable the button
+        // if the JTextField is not empty then enable the button
         {
             try {
-                // Insert student data into the database
-                studentdatasql std = new studentdatasql();
+                //                Long registerNo = generateRegisterNo();
+                registerNoTextField.setText(registerNo.toString());
 
-                    std.StudentUpdate('i', coursecode, semoryear, registerNo, optionalsubject,
-                                firstname, lastname, emailid, contactnumber, dateofbirth, gender, address, state, city,
-                                pincode, fathername, fatheroccupation, mothername, motheroccupation, lastlogin, userid,
-                                password, activestatus, admissiondate, profilepic);
-                    adminhome.CS1.setText("Students : " + Integer.toString(MyFunction.countData("student")));
-                    try {
-                        managestudent.managestudenttable.setModel(new DefaultTableModel(null, new Object[]
-                        {"coursecode", "semoryear", "registerNo", "optionalsubject", "firstname", "lastname", 
-                            "emailid", "contactnumber", "dateofbirth", "gender", "address", "state", "city", "pincode", 
-                            "fathername", "fatheroccupation", "mothername", "motheroccupation", "lastlogin", "userid",
-                                "password", "activestatus", "admissiondate", "profilepic"}));
-                        std.studentTable(managestudent.managestudenttable, "");
-                    } catch (Exception ex) {
-                        System.out.println(ex.getMessage());
-                    }
-                
-                JOptionPane.showMessageDialog(null, "New Student Added Successfully");
+                PreparedStatement ps;
+                String Query = "insert into student values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                ps = con.prepareStatement(Query);
+                ps.setString(1, coursecode.toUpperCase());
+                ps.setInt(2, semoryear);
+                ps.setLong(3, registerNo);
+                ps.setString(4, optionalsubject);
+                ps.setString(5, firstname);
+                ps.setString(6, lastname);
+                ps.setString(7, emailid);
+                ps.setString(8, contactnumber);
+                ps.setString(9, dateofbirth);
+                ps.setString(10, gender);
+                ps.setString(11, address);
+                ps.setString(12, state);
+                ps.setString(13, city);
+                ps.setInt(14, pincode);
+                ps.setString(15, fathername);
+                ps.setString(16, fatheroccupation);
+                ps.setString(17, mothername);
+                ps.setString(18, motheroccupation);
+                ps.setString(19, lastlogin);
+                ps.setString(20, userid);
+                ps.setString(21, password);
+                ps.setByte(22, activestatus);
+                ps.setString(23, admissiondate);
+                ps.setBytes(24, profilepic);
+
+                JOptionPane.showMessageDialog(this, "Record is Added", "Message", JOptionPane.INFORMATION_MESSAGE);
                 //disable();
                 courseComboBox.setSelectedItem("");
                 semOrYearComboBox.setSelectedItem("");
@@ -1048,85 +908,77 @@ public class adminaddstudent extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Pealse Fillup All Fields", "Error", JOptionPane.ERROR_MESSAGE);
             enable();
         }
-    
-    
+
     }//GEN-LAST:event_addstudentbuttonMouseClicked
 
-    private void clearaddstudentbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearaddstudentbuttonActionPerformed
+    private void canceladdstudentbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_canceladdstudentbuttonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_clearaddstudentbuttonActionPerformed
+        dispose();
+    }//GEN-LAST:event_canceladdstudentbuttonActionPerformed
 
-    private void clearaddstudentbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearaddstudentbuttonMouseClicked
+    private void pinCodeTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pinCodeTextFieldFocusGained
         // TODO add your handling code here:
-        
-        courseComboBox.setSelectedItem("-------- SELECT COURSE NAME --------");
-        courseComboBox.setForeground(Color.GRAY);
-        
-        semOrYearComboBox.setSelectedItem("-------- SELECT SEM OR YEAR --------");
-        semOrYearComboBox.setForeground(Color.GRAY);
-        
-        registerNoTextField.setText("Registration Number");
-        registerNoTextField.setForeground(Color.GRAY);
-        
-        OptionalSubject.setSelectedItem("-------- SELECT OPTIONAL SUBJECT --------");
-        OptionalSubject.setForeground(Color.GRAY);
-        
-        firstNameTextField.setText("First Name");
-        firstNameTextField.setForeground(Color.GRAY);
-        
-        lastNameTextField.setText("Last Name");
-        lastNameTextField.setForeground(Color.GRAY);
-        
-        emailIdTextField.setText("Email ID");
-        emailIdTextField.setForeground(Color.GRAY);
-        
-        countrycodeTextField.setText("Code");
-        countrycodeTextField.setForeground(Color.GRAY);
-        
-        contactnoTextFieldField.setText("Conatct No");
-        contactnoTextFieldField.setForeground(Color.GRAY);
-        
-        dobTextField.setDate(null);
-        dobTextField.setForeground(Color.GRAY);
-        
-        genderComboBox.setSelectedItem("-------- SELECT GENDER --------");
-        genderComboBox.setForeground(Color.GRAY);
-        
-        addressTextField.setText("");
-        addressTextField.setForeground(Color.GRAY);
-        
-        stateTextField.setText("State");
-        stateTextField.setForeground(Color.GRAY);
-        
-        cityTextField.setText("City");
-        cityTextField.setForeground(Color.GRAY);
-        
-        pinCodeTextField.setText("Pincode");
+        if(pinCodeTextField.getText().equals("Pincode")){
+            pinCodeTextField.setText("");
+        }
+        pinCodeTextField.setForeground(Color.BLACK);
+    }//GEN-LAST:event_pinCodeTextFieldFocusGained
+
+    private void pinCodeTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pinCodeTextFieldFocusLost
+        // TODO add your handling code here:
+        if(pinCodeTextField.getText().equals("")){
+            pinCodeTextField.setText("Pincode");
+        }
         pinCodeTextField.setForeground(Color.GRAY);
-        
-        fathernameTextField.setText("Father's Name");
-        fathernameTextField.setForeground(Color.GRAY);
-        
-        fatheroccupationTextField.setText("Father's Occupation");
-        fatheroccupationTextField.setForeground(Color.GRAY);
-        
-        mothernameTextField.setText("Mother's Name");
-        mothernameTextField.setForeground(Color.GRAY);
-        
-        motheroccupationTextField.setText("Mother's Occupation");
-        motheroccupationTextField.setForeground(Color.GRAY);
-        
-        userIdTextField.setText("UserName/ID");
+    }//GEN-LAST:event_pinCodeTextFieldFocusLost
+
+    private void userIdTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userIdTextFieldFocusGained
+        // TODO add your handling code here:
+        if(userIdTextField.getText().equals("userid same as emailid")){
+            userIdTextField.setText("");
+        }
+        userIdTextField.setForeground(Color.BLACK);
+    }//GEN-LAST:event_userIdTextFieldFocusGained
+
+    private void userIdTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userIdTextFieldFocusLost
+        // TODO add your handling code here:
+        if(userIdTextField.getText().equals("")){
+            userIdTextField.setText("userid same as emailid");
+        }
         userIdTextField.setForeground(Color.GRAY);
-        
-        passwordField.setText("Password");
+    }//GEN-LAST:event_userIdTextFieldFocusLost
+
+    private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
+        // TODO add your handling code here:
+        if(passwordField.getText().equals("Set Password")){
+            passwordField.setText("");
+        }
+        passwordField.setForeground(Color.BLACK);
+    }//GEN-LAST:event_passwordFieldFocusGained
+
+    private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
+        // TODO add your handling code here:
+        if(passwordField.getText().equals("")){
+            passwordField.setText("Set Password");
+        }
         passwordField.setForeground(Color.GRAY);
-        
-        
-        admissionDateTextField.setDate(null);
-        admissionDateTextField.setForeground(Color.GRAY);
-        
-    }//GEN-LAST:event_clearaddstudentbuttonMouseClicked
+    }//GEN-LAST:event_passwordFieldFocusLost
+
+    private void contactnoTextFieldFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactnoTextFieldFieldFocusGained
+        // TODO add your handling code here:
+        if(contactnoTextFieldField.getText().equals("Contact Number")){
+            contactnoTextFieldField.setText("");
+        }
+        contactnoTextFieldField.setForeground(Color.BLACK);
+    }//GEN-LAST:event_contactnoTextFieldFieldFocusGained
+
+    private void contactnoTextFieldFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contactnoTextFieldFieldFocusLost
+        // TODO add your handling code here:
+        if(contactnoTextFieldField.getText().equals("")){
+            contactnoTextFieldField.setText("Contact Number");
+        }
+        contactnoTextFieldField.setForeground(Color.GRAY);
+    }//GEN-LAST:event_contactnoTextFieldFieldFocusLost
 
     private void contactnoTextFieldFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contactnoTextFieldFieldKeyTyped
         // TODO add your handling code here:
@@ -1135,12 +987,165 @@ public class adminaddstudent extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_contactnoTextFieldFieldKeyTyped
 
-    private void countrycodeTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_countrycodeTextFieldKeyTyped
+    private void removePhotoButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removePhotoButtonMouseClicked
         // TODO add your handling code here:
-        if (!Character.isDigit(evt.getKeyChar())) {
-            evt.consume();
+        studentpic.setIcon(null);
+        studentPhoto = null;
+
+        // Disable remove photo button
+        removePhotoButton.setEnabled(false);
+    }//GEN-LAST:event_removePhotoButtonMouseClicked
+
+    private void clearaddstudentbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearaddstudentbuttonMouseClicked
+        // TODO add your handling code here:
+
+        courseComboBox.setSelectedItem("-------- SELECT COURSE NAME --------");
+        courseComboBox.setForeground(Color.GRAY);
+
+        semOrYearComboBox.setSelectedItem("-------- SELECT CHOICE --------");
+        semOrYearComboBox.setForeground(Color.GRAY);
+
+        registerNoTextField.setText("Registration Number");
+        registerNoTextField.setForeground(Color.GRAY);
+
+        OptionalSubject.setSelectedItem("-------- SELECT OPTIONAL SUBJECT --------");
+        OptionalSubject.setForeground(Color.GRAY);
+
+        firstNameTextField.setText("First Name");
+        firstNameTextField.setForeground(Color.GRAY);
+
+        lastNameTextField.setText("Last Name");
+        lastNameTextField.setForeground(Color.GRAY);
+
+        emailIdTextField.setText("Email ID");
+        emailIdTextField.setForeground(Color.GRAY);
+
+        countrycodeTextField.setText("Code");
+        countrycodeTextField.setForeground(Color.GRAY);
+
+        contactnoTextFieldField.setText("Conatct No");
+        contactnoTextFieldField.setForeground(Color.GRAY);
+
+        dobTextField.setDate(null);
+        dobTextField.setForeground(Color.GRAY);
+
+        genderComboBox.setSelectedItem("-------- SELECT GENDER --------");
+        genderComboBox.setForeground(Color.GRAY);
+
+        addressTextField.setText("");
+        addressTextField.setForeground(Color.GRAY);
+
+        stateTextField.setText("State");
+        stateTextField.setForeground(Color.GRAY);
+
+        cityTextField.setText("City");
+        cityTextField.setForeground(Color.GRAY);
+
+        pinCodeTextField.setText("Pincode");
+        pinCodeTextField.setForeground(Color.GRAY);
+
+        fathernameTextField.setText("Father's Name");
+        fathernameTextField.setForeground(Color.GRAY);
+
+        fatheroccupationTextField.setText("Father's Occupation");
+        fatheroccupationTextField.setForeground(Color.GRAY);
+
+        mothernameTextField.setText("Mother's Name");
+        mothernameTextField.setForeground(Color.GRAY);
+
+        motheroccupationTextField.setText("Mother's Occupation");
+        motheroccupationTextField.setForeground(Color.GRAY);
+
+        userIdTextField.setText("UserName/ID");
+        userIdTextField.setForeground(Color.GRAY);
+
+        passwordField.setText("Password");
+        passwordField.setForeground(Color.GRAY);
+
+        admissionDateTextField.setDate(null);
+        admissionDateTextField.setForeground(Color.GRAY);
+
+    }//GEN-LAST:event_clearaddstudentbuttonMouseClicked
+
+    private void clearaddstudentbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearaddstudentbuttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clearaddstudentbuttonActionPerformed
+
+    private void searchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyPressed
+
+    }//GEN-LAST:event_searchKeyPressed
+
+    private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyReleased
+        managestudenttable.setModel(new DefaultTableModel(null, new Object[]{"ID", "First Name", "Last Name", "Sex", "Date Of Birth", "Phone", "Address"}));
+        std.studentTable(managestudenttable, search.getText());
+    }//GEN-LAST:event_searchKeyReleased
+
+    private void searchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyTyped
+
+    }//GEN-LAST:event_searchKeyTyped
+
+    private void managestudenttableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_managestudenttableMouseClicked
+
+        model = (DefaultTableModel) managestudenttable.getModel();
+
+        rowIndex = managestudenttable.getSelectedRow();
+        female.setSelected(false);
+        male.setSelected(false);
+
+        if (model.getValueAt(rowIndex, 3).toString().equals("male")) {
+            male.setSelected(true);
+        } else {
+
+            female.setSelected(true);
         }
-    }//GEN-LAST:event_countrycodeTextFieldKeyTyped
+
+        ID.setText(model.getValueAt(rowIndex, 0).toString());
+        FN.setText(model.getValueAt(rowIndex, 1).toString());
+        LN.setText(model.getValueAt(rowIndex, 2).toString());
+        ph.setText(model.getValueAt(rowIndex, 5).toString());
+        add.setText(model.getValueAt(rowIndex, 6).toString());
+
+        Date Birth;
+        try {
+            Birth = new SimpleDateFormat("yyyy-MM-dd").parse(model.getValueAt(rowIndex, 4).toString());
+            dateOfBirth.setDate(Birth);
+        } catch (ParseException ex) {
+            Logger.getLogger(ManageStudents.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_managestudenttableMouseClicked
+
+    private void managestudenttableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_managestudenttableKeyPressed
+
+    }//GEN-LAST:event_managestudenttableKeyPressed
+
+    private void managestudenttableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_managestudenttableKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            rowIndex = managestudenttable.getSelectedRow();
+            ID.setText(model.getValueAt(rowIndex, 0).toString());
+            FN.setText(model.getValueAt(rowIndex, 1).toString());
+            LN.setText(model.getValueAt(rowIndex, 2).toString());
+            ph.setText(model.getValueAt(rowIndex, 5).toString());
+            add.setText(model.getValueAt(rowIndex, 6).toString());
+
+            if (model.getValueAt(rowIndex, 3).toString().equals("male")) {
+                male.setSelected(true);
+                female.setSelected(false);
+            } else {
+
+                female.setSelected(true);
+                male.setSelected(false);
+            }
+
+            Date Birth;
+            try {
+                Birth = new SimpleDateFormat("yyyy-MM-dd").parse(model.getValueAt(rowIndex, 4).toString());
+                dateOfBirth.setDate(Birth);
+            } catch (ParseException ex) {
+                Logger.getLogger(ManageStudents.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_managestudenttableKeyReleased
 
     /**
      * @param args the command line arguments
@@ -1159,20 +1164,20 @@ public class adminaddstudent extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(adminaddstudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(managestudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(adminaddstudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(managestudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(adminaddstudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(managestudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(adminaddstudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(managestudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new adminaddstudent().setVisible(true);
+                new managestudent().setVisible(true);
             }
         });
     }
@@ -1208,6 +1213,7 @@ public class adminaddstudent extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1217,14 +1223,17 @@ public class adminaddstudent extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JTextField lastNameTextField;
+    public static javax.swing.JTable managestudenttable;
     private javax.swing.JTextField mothernameTextField;
     private javax.swing.JTextField motheroccupationTextField;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField pinCodeTextField;
     private javax.swing.JTextField registerNoTextField;
     private javax.swing.JButton removePhotoButton;
+    private javax.swing.JTextField search;
     private javax.swing.JComboBox<String> semOrYearComboBox;
     private javax.swing.JTextField stateTextField;
     private javax.swing.JLabel studentpic;
