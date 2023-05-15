@@ -45,7 +45,7 @@ public class studentdatasql {
                 ps.setString(11, address);
                 ps.setString(12, state);
                 ps.setString(13, city);
-                ps.setInt(14, semoryear);
+                ps.setInt(14, pincode);
                 ps.setString(15, fathername);
                 ps.setString(16, fatheroccupation);
                 ps.setString(17, mothername);
@@ -70,8 +70,9 @@ public class studentdatasql {
             try {
                 ps = con.prepareStatement("UPDATE students SET coursecode=?, semoryear=?, optionalsubject=?,"
                         + " firstname=?, lastname=?, emailid=?, contactnumber=?, dateofbirth=?, gender=?, "
-                        + "address=?, state=?, city=?, fathername=?, fatheroccupation=?, mothername=?, "
-                        + "motheroccupation=?, lastlogin=?, password=?, activestatus=?, admissiondate=? "
+                        + "address=?, state=?, city=?, pincode=?, fathername=?, fatheroccupation=?, mothername=?, "
+                        + "motheroccupation=?, lastlogin=?, userid=?, password=?, activestatus=?, admissiondate=? "
+                        + "profilepic=?"
                         + "WHERE registerNo=?");
                 ps.setString(1, coursecode.toUpperCase());
                 ps.setInt(2, semoryear);
@@ -85,15 +86,18 @@ public class studentdatasql {
                 ps.setString(10, address);
                 ps.setString(11, state);
                 ps.setString(12, city);
-                ps.setString(13, fathername);
-                ps.setString(14, fatheroccupation);
-                ps.setString(15, mothername);
-                ps.setString(16, motheroccupation);
-                ps.setString(17, lastlogin);
-                ps.setString(18, password);
-                ps.setByte(19, activestatus);
-                ps.setString(20, admissiondate);
-                ps.setLong(21, registerNo);
+                ps.setInt(13, pincode);
+                ps.setString(14, fathername);
+                ps.setString(15, fatheroccupation);
+                ps.setString(16, mothername);
+                ps.setString(17, motheroccupation);
+                ps.setString(18, lastlogin);
+                ps.setString(19, userid);
+                ps.setString(20, password);
+                ps.setByte(21, activestatus);
+                ps.setString(22, admissiondate);
+                ps.setBytes(23, profilepic);
+                ps.setLong(24, registerNo);
 
                 if (ps.executeUpdate() > 0) {
                     JOptionPane.showMessageDialog(null, "Student Data Updated Successfully");

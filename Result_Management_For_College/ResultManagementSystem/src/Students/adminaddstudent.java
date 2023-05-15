@@ -26,6 +26,8 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -82,6 +84,60 @@ public class adminaddstudent extends javax.swing.JFrame {
 //        });
 //    }
 
+    public void disable() {
+        courseComboBox.setEnabled(false);
+        semOrYearComboBox.setEnabled(false);
+        registerNoTextField.setEnabled(false);
+        OptionalSubject.setEnabled(false);
+        firstNameTextField.setEnabled(false);
+        lastNameTextField.setEnabled(false);
+        emailIdTextField.setEnabled(false);
+        countrycodeTextField.setEnabled(false);
+        contactnoTextFieldField.setEnabled(false);
+        dobTextField.setEnabled(false);
+        genderComboBox.setEnabled(false);
+        addressTextField.setEnabled(false);
+        stateTextField.setEnabled(false);
+        cityTextField.setEnabled(false);
+        pinCodeTextField.setEnabled(false);
+        fathernameTextField.setEnabled(false);
+        fatheroccupationTextField.setEnabled(false);
+        mothernameTextField.setEnabled(false);
+        motheroccupationTextField.setEnabled(false);
+        userIdTextField.setEnabled(false);
+        passwordField.setEnabled(false);
+        admissionDateTextField.setEnabled(false);
+        studentpic.setEnabled(false);
+        
+    }
+
+    public void enable() {
+        courseComboBox.setEnabled(true);
+        semOrYearComboBox.setEnabled(true);
+        registerNoTextField.setEnabled(true);
+        OptionalSubject.setEnabled(true);
+        firstNameTextField.setEnabled(true);
+        lastNameTextField.setEnabled(true);
+        emailIdTextField.setEnabled(true);
+        countrycodeTextField.setEnabled(true);
+        contactnoTextFieldField.setEnabled(true);
+        dobTextField.setEnabled(true);
+        genderComboBox.setEnabled(true);
+        addressTextField.setEnabled(true);
+        stateTextField.setEnabled(true);
+        cityTextField.setEnabled(true);
+        pinCodeTextField.setEnabled(true);
+        fathernameTextField.setEnabled(true);
+        fatheroccupationTextField.setEnabled(true);
+        mothernameTextField.setEnabled(true);
+        motheroccupationTextField.setEnabled(true);
+        userIdTextField.setEnabled(true);
+        passwordField.setEnabled(true);
+        admissionDateTextField.setEnabled(true);
+        studentpic.setEnabled(true);
+    }
+    
+    
     public adminaddstudent() {
         initComponents();
         setTitle("Admin Add Students");
@@ -148,6 +204,7 @@ public class adminaddstudent extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        clearaddstudentbutton = new com.k33ptoo.components.KButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -188,7 +245,7 @@ public class adminaddstudent extends javax.swing.JFrame {
         jPanel1.add(courseComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 300, 30));
 
         semOrYearComboBox.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        semOrYearComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-------- SELECT CHOICE --------", "Sem", "Year" }));
+        semOrYearComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-------- SELECT CHOICE --------", "1", "2", "3", "4", "5", "6", "7", "8" }));
         jPanel1.add(semOrYearComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 300, 30));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -200,7 +257,7 @@ public class adminaddstudent extends javax.swing.JFrame {
         jPanel1.add(registerNoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 209, 30));
 
         OptionalSubject.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        OptionalSubject.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-------- SELECT OPTIONAL SUBJECT --------" }));
+        OptionalSubject.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-------- SELECT OPTIONAL SUBJECT --------", "asd", "adfg", "sft", "gf" }));
         jPanel1.add(OptionalSubject, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 300, 30));
 
         firstNameTextField.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
@@ -367,6 +424,7 @@ public class adminaddstudent extends javax.swing.JFrame {
         jLabel4.setText("Address");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, 30));
 
+        studentpic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Students/pd.jpg"))); // NOI18N
         studentpic.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 2, true));
         jPanel1.add(studentpic, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 130, 140));
 
@@ -396,12 +454,12 @@ public class adminaddstudent extends javax.swing.JFrame {
         addstudentbutton.setkEndColor(new java.awt.Color(255, 0, 255));
         addstudentbutton.setkHoverForeGround(new java.awt.Color(0, 0, 0));
         addstudentbutton.setkHoverStartColor(new Color(73,13,198,120));
-        addstudentbutton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addstudentbuttonActionPerformed(evt);
+        addstudentbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addstudentbuttonMouseClicked(evt);
             }
         });
-        jPanel1.add(addstudentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 640, 75, 35));
+        jPanel1.add(addstudentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 640, 75, 35));
 
         canceladdstudentbutton.setText("CANCEL");
         canceladdstudentbutton.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
@@ -414,7 +472,7 @@ public class adminaddstudent extends javax.swing.JFrame {
                 canceladdstudentbuttonActionPerformed(evt);
             }
         });
-        jPanel1.add(canceladdstudentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 640, 80, 35));
+        jPanel1.add(canceladdstudentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 640, 80, 35));
 
         pinCodeTextField.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         pinCodeTextField.setForeground(new java.awt.Color(204, 204, 204));
@@ -530,6 +588,24 @@ public class adminaddstudent extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel20.setText("Father's Occupation");
         jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 460, -1, 30));
+
+        clearaddstudentbutton.setText("CLEAR");
+        clearaddstudentbutton.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
+        clearaddstudentbutton.setkBorderRadius(25);
+        clearaddstudentbutton.setkEndColor(new java.awt.Color(255, 0, 255));
+        clearaddstudentbutton.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        clearaddstudentbutton.setkHoverStartColor(new Color(73,13,198,120));
+        clearaddstudentbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clearaddstudentbuttonMouseClicked(evt);
+            }
+        });
+        clearaddstudentbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearaddstudentbuttonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(clearaddstudentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 640, 80, 35));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 690));
 
@@ -702,61 +778,6 @@ public class adminaddstudent extends javax.swing.JFrame {
         return dateFormat.format(date);
     }
     
-    private void addstudentbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addstudentbuttonActionPerformed
-        // TODO add your handling code here:                                     
-    String coursecode = courseComboBox.getSelectedItem().toString();
-    Integer semoryear = Integer.parseInt(semOrYearComboBox.getSelectedItem().toString());
-    Long registerNo = Long.parseLong(registerNoTextField.getText());
-    String optionalsubject = OptionalSubject.getSelectedItem().toString();
-    String firstname = firstNameTextField.getText();
-    String lastname = lastNameTextField.getText();
-    String emailid = emailIdTextField.getText();
-    
-    String contactnumber = "+" + countrycodeTextField.getText() + " " + contactnoTextFieldField.getText();
-    
-    Date date = dobTextField.getDate();
-    String dateofbirth = new SimpleDateFormat("dd-MM-yyyy").format(date);
-    
-    String gender = genderComboBox.getSelectedItem().toString();
-    String address = addressTextField.getText();
-    String state = stateTextField.getText();
-    String city = cityTextField.getText();
-    Integer pincode = Integer.parseInt(pinCodeTextField.getText());
-    String fathername = fathernameTextField.getText();
-    String fatheroccupation = fatheroccupationTextField.getText();
-    String mothername = mothernameTextField.getText();
-    String motheroccupation = motheroccupationTextField.getText();
-    String lastlogin = getLastLogin();
-    String userid = userIdTextField.getText();
-    String password = new String(passwordField.getPassword());
-    Byte activestatus = 1;
-    
-    Date admission = admissionDateTextField.getDate();
-    String admissiondate = new SimpleDateFormat("dd-MM-yyyy").format(admission);
-    
-    // Get student picture
-    byte[] profilepic = null;
-    if (studentpic.getIcon() != null) {
-        try {
-            BufferedImage img = ImageIO.read(new ByteArrayInputStream(profilepic));
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(img, "jpg", baos);
-            profilepic = baos.toByteArray();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    // Insert student data into the database
-    studentdatasql sd = new studentdatasql();
-    sd.StudentUpdate('i', coursecode, semoryear, registerNo, optionalsubject, firstname, lastname, emailid, 
-            contactnumber, dateofbirth, gender, address, state, city, pincode, fathername, fatheroccupation, mothername, 
-            motheroccupation, lastlogin, userid, password, activestatus, admissiondate, profilepic);
-
-    
-    
-    }//GEN-LAST:event_addstudentbuttonActionPerformed
-
     private void canceladdstudentbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_canceladdstudentbuttonActionPerformed
         // TODO add your handling code here:
         dispose();
@@ -878,6 +899,215 @@ public class adminaddstudent extends javax.swing.JFrame {
         removePhotoButton.setEnabled(false);
     }//GEN-LAST:event_removePhotoButtonMouseClicked
 
+    private void addstudentbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addstudentbuttonMouseClicked
+        // TODO add your handling code here:
+        String coursecode = courseComboBox.getSelectedItem().toString();
+        Integer semoryear = Integer.parseInt(semOrYearComboBox.getSelectedItem().toString());
+        Long registerNo = Long.parseLong(registerNoTextField.getText());
+        String optionalsubject = OptionalSubject.getSelectedItem().toString();
+        String firstname = firstNameTextField.getText();
+        String lastname = lastNameTextField.getText();
+        String emailid = emailIdTextField.getText();
+
+        String contactnumber = "+" + countrycodeTextField.getText() + " " + contactnoTextFieldField.getText();
+
+        Date date = dobTextField.getDate();
+        String dateofbirth = new SimpleDateFormat("dd-MM-yyyy").format(date);
+
+        String gender = genderComboBox.getSelectedItem().toString();
+        String address = addressTextField.getText();
+        String state = stateTextField.getText();
+        String city = cityTextField.getText();
+        Integer pincode = Integer.parseInt(pinCodeTextField.getText());
+        String fathername = fathernameTextField.getText();
+        String fatheroccupation = fatheroccupationTextField.getText();
+        String mothername = mothernameTextField.getText();
+        String motheroccupation = motheroccupationTextField.getText();
+        String lastlogin = getLastLogin();
+        String userid = userIdTextField.getText();
+        String password = new String(passwordField.getPassword());
+        Byte activestatus = 1;
+
+        Date admission = admissionDateTextField.getDate();
+        String admissiondate = new SimpleDateFormat("dd-MM-yyyy").format(admission);
+
+        // Get student picture
+        byte[] profilepic = null;
+        if (studentpic.getIcon() != null) {
+            try {
+                BufferedImage img = ImageIO.read(new ByteArrayInputStream(profilepic));
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(img, "jpg", baos);
+                profilepic = baos.toByteArray();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        // Insert student data into the database
+//        studentdatasql sd = new studentdatasql();
+//        sd.StudentUpdate('i', coursecode, semoryear, registerNo, optionalsubject, firstname, lastname, emailid, 
+//                contactnumber, dateofbirth, gender, address, state, city, pincode, fathername, fatheroccupation, mothername, 
+//                motheroccupation, lastlogin, userid, password, activestatus, admissiondate, profilepic);
+
+        if (!registerNo.equals("") & !firstname.equals("") & !lastname.equals("") & 
+                !emailid.equals("") & !contactnumber.equals("") & !dateofbirth.equals("") & 
+                !address.equals("") & !state.equals("") & !city.equals("") & 
+                !pincode.equals("") & !fathername.equals("") & !fatheroccupation.equals("") & 
+                !mothername.equals("") & !motheroccupation.equals("") & !userid.equals("") & 
+                !password.equals("") & !admissiondate.equals("") & !profilepic.equals("") & 
+                !coursecode.equals("") & !semoryear.equals("") & !optionalsubject.equals("") & 
+                !gender.equals(""))
+            // if the JTextField is not empty then enable the button
+        {
+            try {
+                PreparedStatement ps;
+                
+                String Query = "insert into student values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                ps = con.prepareStatement(Query);
+//                ps.setString(1, registerNoTextField.getText());
+                ps.setString(1, coursecode.toUpperCase());
+                ps.setInt(2, semoryear);
+                ps.setLong(3, registerNo);
+                ps.setString(4, optionalsubject);
+                ps.setString(5, firstname);
+                ps.setString(6, lastname);
+                ps.setString(7, emailid);
+                ps.setString(8, contactnumber);
+                ps.setString(9, dateofbirth);
+                ps.setString(10, gender);
+                ps.setString(11, address);
+                ps.setString(12, state);
+                ps.setString(13, city);
+                ps.setInt(14, pincode);
+                ps.setString(15, fathername);
+                ps.setString(16, fatheroccupation);
+                ps.setString(17, mothername);
+                ps.setString(18, motheroccupation);
+                ps.setString(19, lastlogin);
+                ps.setString(20, userid);
+                ps.setString(21, password);
+                ps.setByte(22, activestatus);
+                ps.setString(23, admissiondate);
+                ps.setBytes(24, profilepic);
+                
+                JOptionPane.showMessageDialog(this, "Record is Added", "Message", JOptionPane.INFORMATION_MESSAGE);
+                //disable();
+                courseComboBox.setSelectedItem("");
+                semOrYearComboBox.setSelectedItem("");
+                registerNoTextField.setText("");
+                OptionalSubject.getSelectedItem().toString();
+                firstNameTextField.setText("");
+                lastNameTextField.setText("");
+                emailIdTextField.setText("");
+                countrycodeTextField.setText("");
+                contactnoTextFieldField.setText("");
+
+                dobTextField.setDate(null);
+
+                genderComboBox.getSelectedItem().toString();
+                addressTextField.setText("");
+                stateTextField.setText("");
+                cityTextField.setText("");
+                pinCodeTextField.setText("");
+                fathernameTextField.setText("");
+                fatheroccupationTextField.setText("");
+                mothernameTextField.setText("");
+                motheroccupationTextField.setText("");
+
+                userIdTextField.setText("");
+                passwordField.setText("");
+
+                admissionDateTextField.setDate(null);
+                studentpic.setIcon(null);
+            }catch (SQLException ex) {
+                Logger.getLogger(studentdatasql.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.toString());
+            }
+        }else {
+            JOptionPane.showMessageDialog(this, "Pealse Fillup All Fields", "Error", JOptionPane.ERROR_MESSAGE);
+            enable();
+        }
+    
+    
+    }//GEN-LAST:event_addstudentbuttonMouseClicked
+
+    private void clearaddstudentbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearaddstudentbuttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clearaddstudentbuttonActionPerformed
+
+    private void clearaddstudentbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearaddstudentbuttonMouseClicked
+        // TODO add your handling code here:
+        
+        courseComboBox.setSelectedItem("-------- SELECT COURSE NAME --------");
+        courseComboBox.setForeground(Color.GRAY);
+        
+        semOrYearComboBox.setSelectedItem("-------- SELECT CHOICE --------");
+        semOrYearComboBox.setForeground(Color.GRAY);
+        
+        registerNoTextField.setText("Registration Number");
+        registerNoTextField.setForeground(Color.GRAY);
+        
+        OptionalSubject.setSelectedItem("-------- SELECT OPTIONAL SUBJECT --------");
+        OptionalSubject.setForeground(Color.GRAY);
+        
+        firstNameTextField.setText("First Name");
+        firstNameTextField.setForeground(Color.GRAY);
+        
+        lastNameTextField.setText("Last Name");
+        lastNameTextField.setForeground(Color.GRAY);
+        
+        emailIdTextField.setText("Email ID");
+        emailIdTextField.setForeground(Color.GRAY);
+        
+        countrycodeTextField.setText("Code");
+        countrycodeTextField.setForeground(Color.GRAY);
+        
+        contactnoTextFieldField.setText("Conatct No");
+        contactnoTextFieldField.setForeground(Color.GRAY);
+        
+        dobTextField.setDate(null);
+        dobTextField.setForeground(Color.GRAY);
+        
+        genderComboBox.setSelectedItem("-------- SELECT GENDER --------");
+        genderComboBox.setForeground(Color.GRAY);
+        
+        addressTextField.setText("");
+        addressTextField.setForeground(Color.GRAY);
+        
+        stateTextField.setText("State");
+        stateTextField.setForeground(Color.GRAY);
+        
+        cityTextField.setText("City");
+        cityTextField.setForeground(Color.GRAY);
+        
+        pinCodeTextField.setText("Pincode");
+        pinCodeTextField.setForeground(Color.GRAY);
+        
+        fathernameTextField.setText("Father's Name");
+        fathernameTextField.setForeground(Color.GRAY);
+        
+        fatheroccupationTextField.setText("Father's Occupation");
+        fatheroccupationTextField.setForeground(Color.GRAY);
+        
+        mothernameTextField.setText("Mother's Name");
+        mothernameTextField.setForeground(Color.GRAY);
+        
+        motheroccupationTextField.setText("Mother's Occupation");
+        motheroccupationTextField.setForeground(Color.GRAY);
+        
+        userIdTextField.setText("UserName/ID");
+        userIdTextField.setForeground(Color.GRAY);
+        
+        passwordField.setText("Password");
+        passwordField.setForeground(Color.GRAY);
+        
+        
+        admissionDateTextField.setDate(null);
+        admissionDateTextField.setForeground(Color.GRAY);
+        
+    }//GEN-LAST:event_clearaddstudentbuttonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -920,6 +1150,7 @@ public class adminaddstudent extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser admissionDateTextField;
     private com.k33ptoo.components.KButton canceladdstudentbutton;
     private javax.swing.JTextField cityTextField;
+    private com.k33ptoo.components.KButton clearaddstudentbutton;
     private javax.swing.JTextField contactnoTextFieldField;
     private javax.swing.JTextField countrycodeTextField;
     private javax.swing.JComboBox<String> courseComboBox;
