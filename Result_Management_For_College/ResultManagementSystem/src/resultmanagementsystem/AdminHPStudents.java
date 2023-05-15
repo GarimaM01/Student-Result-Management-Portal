@@ -4,8 +4,14 @@
  */
 package resultmanagementsystem;
 
+import Connection.MyConnection;
+import Students.adminaddstudent;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -251,18 +257,15 @@ public class AdminHPStudents extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Class", "RollNo", "StudentName", "CourseName", "Sem/Year"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        ));
+        jTable1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jTable1ComponentShown(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -589,6 +592,20 @@ public class AdminHPStudents extends javax.swing.JFrame {
         // TODO add your handling code here:
         new adminmanagecourse().setVisible(true);
     }//GEN-LAST:event_viewstudentMouseClicked
+
+    private void jTable1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTable1ComponentShown
+        // TODO add your handling code here:
+        try{
+            Connection con = MyConnection.getConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM student ORDER BY registerNo");
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
+    }//GEN-LAST:event_jTable1ComponentShown
 
     /**
      * @param args the command line arguments
