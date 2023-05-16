@@ -4,6 +4,34 @@
  */
 package Students;
 
+import Connection.MyFunction;
+import static java.awt.AWTEventMulticaster.add;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import resultmanagementsystem.adminhome;
+import resultmanagementsystem.adminmanagecourse;
+import static resultmanagementsystem.adminmanagecourse.ID;
+
 /**
  *
  * @author Meteor
@@ -11,10 +39,24 @@ package Students;
 public class managestudent extends javax.swing.JFrame {
 
     /**
-     * Creates new form managestudent
+     * Creates new form manage student
      */
+    
+    studentdatasql std = new studentdatasql();
+    DefaultTableModel model;
+    private byte[] studentPhoto = null;
+    int rowIndex;
+    
+    
+    private String getLastLogin() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+    
     public managestudent() {
         initComponents();
+        model = (DefaultTableModel) managestudenttable.getModel();
     }
 
     /**
@@ -81,6 +123,7 @@ public class managestudent extends javax.swing.JFrame {
         search = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         managestudenttable = new javax.swing.JTable();
+        removeaddstudentbutton = new com.k33ptoo.components.KButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -338,7 +381,7 @@ public class managestudent extends javax.swing.JFrame {
                 addstudentbuttonMouseClicked(evt);
             }
         });
-        jPanel1.add(addstudentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 640, 75, 35));
+        jPanel1.add(addstudentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 640, 90, 35));
 
         canceladdstudentbutton.setText("CANCEL");
         canceladdstudentbutton.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
@@ -351,7 +394,7 @@ public class managestudent extends javax.swing.JFrame {
                 canceladdstudentbuttonActionPerformed(evt);
             }
         });
-        jPanel1.add(canceladdstudentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 640, 80, 35));
+        jPanel1.add(canceladdstudentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 640, 100, 35));
 
         pinCodeTextField.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         pinCodeTextField.setForeground(new java.awt.Color(204, 204, 204));
@@ -489,7 +532,7 @@ public class managestudent extends javax.swing.JFrame {
                 clearaddstudentbuttonActionPerformed(evt);
             }
         });
-        jPanel1.add(clearaddstudentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 640, 80, 35));
+        jPanel1.add(clearaddstudentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 640, 100, 35));
 
         jLabel21.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel21.setText("Search:");
@@ -534,6 +577,24 @@ public class managestudent extends javax.swing.JFrame {
         jScrollPane2.setViewportView(managestudenttable);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 140, 520, -1));
+
+        removeaddstudentbutton.setText("REMOVE");
+        removeaddstudentbutton.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
+        removeaddstudentbutton.setkBorderRadius(25);
+        removeaddstudentbutton.setkEndColor(new java.awt.Color(255, 0, 255));
+        removeaddstudentbutton.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        removeaddstudentbutton.setkHoverStartColor(new Color(73,13,198,120));
+        removeaddstudentbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeaddstudentbuttonMouseClicked(evt);
+            }
+        });
+        removeaddstudentbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeaddstudentbuttonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(removeaddstudentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 640, 110, 35));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -759,155 +820,11 @@ public class managestudent extends javax.swing.JFrame {
 
     private void addstudentbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addstudentbuttonMouseClicked
         // TODO add your handling code here:
-
-        String coursecode = courseComboBox.getSelectedItem().toString();
-        Integer semoryear = Integer.parseInt(semOrYearComboBox.getSelectedItem().toString());
-        //        Long registerNo = Long.parseLong(registerNoTextField.getText());
-        // Generate a random 5-digit number starting from 10000
-        Long registerNo = new Random().nextLong(90000) + 10000;
-
-        String optionalsubject = OptionalSubject.getSelectedItem().toString();
-        String firstname = firstNameTextField.getText();
-        String lastname = lastNameTextField.getText();
-        String emailid = emailIdTextField.getText();
-
-        String contactnumber = "+" + countrycodeTextField.getText() + " " + contactnoTextFieldField.getText();
-
-        Date date = dobTextField.getDate();
-        String dateofbirth = new SimpleDateFormat("dd-MM-yyyy").format(date);
-
-        String gender = genderComboBox.getSelectedItem().toString();
-        String address = addressTextField.getText();
-        String state = stateTextField.getText();
-        String city = cityTextField.getText();
-        Integer pincode = Integer.parseInt(pinCodeTextField.getText());
-        String fathername = fathernameTextField.getText();
-        String fatheroccupation = fatheroccupationTextField.getText();
-        String mothername = mothernameTextField.getText();
-        String motheroccupation = motheroccupationTextField.getText();
-        String lastlogin = getLastLogin();
-        String userid = userIdTextField.getText();
-        String password = new String(passwordField.getPassword());
-        Byte activestatus = 1;
-
-        Date admission = admissionDateTextField.getDate();
-        String admissiondate = new SimpleDateFormat("dd-MM-yyyy").format(admission);
-
-        // Get student picture
-        byte[] profilepic = null;
-        if (studentpic.getIcon() != null) {
-            try {
-                BufferedImage img = ImageIO.read(new ByteArrayInputStream(profilepic));
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write(img, "jpg", baos);
-                profilepic = baos.toByteArray();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        // Insert student data into the database
-
-        studentdatasql std = new studentdatasql();
-
-        std.StudentUpdate('i', coursecode, semoryear, registerNo, optionalsubject,
-            firstname, lastname, emailid, contactnumber, dateofbirth, gender, address, state, city,
-            pincode, fathername, fatheroccupation, mothername, motheroccupation, lastlogin, userid,
-            password, activestatus, admissiondate, profilepic);
-        adminhome.CS1.setText("Students : " + Integer.toString(MyFunction.countData("student")));
-        try {
-            AdminHPStudents.managestudenttable.setModel(new DefaultTableModel(null, new Object[]{"ID", "First Name", "Last Name", "Sex", "Date Of Birth", "Phone", "Address"}));
-            std.studentTable(ManageStudents.jTable, "");
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        cs.courseTable(adminmanagecourse.managecoursetable);
-        adminmanagecourse.managecoursetable.setModel(new DefaultTableModel(null, new Object[]{"Sr_No", "Course Code", "Course Name", "Sem/Year","Toatl Sem/Year"}));
-        cs.courseTable(adminmanagecourse.managecoursetable);
-        adminhome.CS.setText("Courses : " + Integer.toString(MyFunction.countData("courses")));
-
-        if (registerNo != 00000 && registerNo > 10000 && !firstname.equals("") && !lastname.equals("") &&
-            !emailid.equals("") && !contactnumber.equals("") && !dateofbirth.equals("") &&
-            !address.equals("") && !state.equals("") && !city.equals("") &&
-            !pincode.equals("") && !fathername.equals("") && !fatheroccupation.equals("") &&
-            !mothername.equals("") && !motheroccupation.equals("") && !userid.equals("") &&
-            !password.equals("") && !admissiondate.equals("") && !profilepic.equals("") &&
-            !coursecode.equals("") && !semoryear.equals("") && !optionalsubject.equals("") &&
-            !gender.equals(""))
-
-        // if the JTextField is not empty then enable the button
-        {
-            try {
-                //                Long registerNo = generateRegisterNo();
-                registerNoTextField.setText(registerNo.toString());
-
-                PreparedStatement ps;
-                String Query = "insert into student values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                ps = con.prepareStatement(Query);
-                ps.setString(1, coursecode.toUpperCase());
-                ps.setInt(2, semoryear);
-                ps.setLong(3, registerNo);
-                ps.setString(4, optionalsubject);
-                ps.setString(5, firstname);
-                ps.setString(6, lastname);
-                ps.setString(7, emailid);
-                ps.setString(8, contactnumber);
-                ps.setString(9, dateofbirth);
-                ps.setString(10, gender);
-                ps.setString(11, address);
-                ps.setString(12, state);
-                ps.setString(13, city);
-                ps.setInt(14, pincode);
-                ps.setString(15, fathername);
-                ps.setString(16, fatheroccupation);
-                ps.setString(17, mothername);
-                ps.setString(18, motheroccupation);
-                ps.setString(19, lastlogin);
-                ps.setString(20, userid);
-                ps.setString(21, password);
-                ps.setByte(22, activestatus);
-                ps.setString(23, admissiondate);
-                ps.setBytes(24, profilepic);
-
-                JOptionPane.showMessageDialog(this, "Record is Added", "Message", JOptionPane.INFORMATION_MESSAGE);
-                //disable();
-                courseComboBox.setSelectedItem("");
-                semOrYearComboBox.setSelectedItem("");
-                registerNoTextField.setText("");
-                OptionalSubject.getSelectedItem().toString();
-                firstNameTextField.setText("");
-                lastNameTextField.setText("");
-                emailIdTextField.setText("");
-                countrycodeTextField.setText("");
-                contactnoTextFieldField.setText("");
-
-                dobTextField.setDate(null);
-
-                genderComboBox.getSelectedItem().toString();
-                addressTextField.setText("");
-                stateTextField.setText("");
-                cityTextField.setText("");
-                pinCodeTextField.setText("");
-                fathernameTextField.setText("");
-                fatheroccupationTextField.setText("");
-                mothernameTextField.setText("");
-                motheroccupationTextField.setText("");
-
-                userIdTextField.setText("");
-                passwordField.setText("");
-
-                admissionDateTextField.setDate(null);
-                studentpic.setIcon(null);
-            }catch (Exception ex) {
-                System.out.println(ex.getMessage());
-            }
-        }else if (dobTextField.getDate().compareTo(new Date()) > 0) {
-            JOptionPane.showMessageDialog(null, "No Student From The Future Are Allowed");
-        }else {
-            JOptionPane.showMessageDialog(this, "Pealse Fillup All Fields", "Error", JOptionPane.ERROR_MESSAGE);
-            enable();
-        }
+        adminaddstudent addStu = new adminaddstudent();
+        addStu.setVisible(true);
+        addStu.pack();
+        addStu.setLocationRelativeTo(null);
+        addStu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }//GEN-LAST:event_addstudentbuttonMouseClicked
 
@@ -1076,7 +993,10 @@ public class managestudent extends javax.swing.JFrame {
     }//GEN-LAST:event_searchKeyPressed
 
     private void searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchKeyReleased
-        managestudenttable.setModel(new DefaultTableModel(null, new Object[]{"ID", "First Name", "Last Name", "Sex", "Date Of Birth", "Phone", "Address"}));
+        managestudenttable.setModel(new DefaultTableModel(null, new Object[]{"coursecode", "semoryear", "registerNo", "optionalsubject", "firstname", "lastname", 
+                            "emailid", "contactnumber", "dateofbirth", "gender", "address", "state", "city", "pincode", 
+                            "fathername", "fatheroccupation", "mothername", "motheroccupation", "lastlogin", "userid",
+                                "password", "activestatus", "admissiondate", "profilepic"}));
         std.studentTable(managestudenttable, search.getText());
     }//GEN-LAST:event_searchKeyReleased
 
@@ -1146,6 +1066,42 @@ public class managestudent extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_managestudenttableKeyReleased
+
+    private void removeaddstudentbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeaddstudentbuttonMouseClicked
+        // TODO add your handling code here:
+        if (registerNoTextField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "No Student Selected");
+        } else {
+            int id = Integer.valueOf(registerNoTextField.getText());
+            std.StudentUpdate('d', registerNo, null, null, null, null, null, null);
+            std.studentTable(jTable, "");
+            ManageStudents.jTable.setModel(new DefaultTableModel(null, new Object[]{"ID", "First Name", "Last Name", "Sex", "Date Of Birth", "Phone", "Address"}));
+            std.studentTable(jTable, search.getText());
+            MainForm.CS.setText("Current Students = " + Integer.toString(MyFunction.countData("student")));
+        }
+        
+        if (registerNoTextField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "No Student Selected");
+        } else {
+
+            int id = Integer.valueOf(registerNoTextField.getText());
+            String coursename = entercoursename.getText();
+            String coursecode = entercoursecode.getText();
+            String semoryear = (String) entersemoryear.getSelectedItem();
+            String totalsemoryear = entertotalsemoryear.getText();
+            int totalsem=Integer.parseInt(totalsemoryear);
+            
+            cs.CourseUpdate('d', id, coursecode, coursename, semoryear, totalsem);
+            cs.courseTable(adminmanagecourse.managecoursetable);
+            adminmanagecourse.managecoursetable.setModel(new DefaultTableModel(null, new Object[]{"Sr_No", "Course Code", "Course Name", "Sem/Year","Toatl Sem/Year"}));
+            cs.courseTable(adminmanagecourse.managecoursetable);
+            adminhome.CS.setText("Courses : " + Integer.toString(MyFunction.countData("courses")));
+        }
+    }//GEN-LAST:event_removeaddstudentbuttonMouseClicked
+
+    private void removeaddstudentbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeaddstudentbuttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removeaddstudentbuttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1233,6 +1189,7 @@ public class managestudent extends javax.swing.JFrame {
     private javax.swing.JTextField pinCodeTextField;
     private javax.swing.JTextField registerNoTextField;
     private javax.swing.JButton removePhotoButton;
+    private com.k33ptoo.components.KButton removeaddstudentbutton;
     private javax.swing.JTextField search;
     private javax.swing.JComboBox<String> semOrYearComboBox;
     private javax.swing.JTextField stateTextField;

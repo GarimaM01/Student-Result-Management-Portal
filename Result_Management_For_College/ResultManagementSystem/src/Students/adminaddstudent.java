@@ -156,6 +156,13 @@ public class adminaddstudent extends javax.swing.JFrame {
     }
     
     
+    private String getLastLogin() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+    
+    
     public adminaddstudent() {
         initComponents();
         setTitle("Admin Add Students");
@@ -800,11 +807,7 @@ public class adminaddstudent extends javax.swing.JFrame {
         motheroccupationTextField.setForeground(Color.GRAY);
     }//GEN-LAST:event_motheroccupationTextFieldFocusLost
 
-    private String getLastLogin() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        return dateFormat.format(date);
-    }
+    
     
     private void canceladdstudentbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_canceladdstudentbuttonActionPerformed
         // TODO add your handling code here:
